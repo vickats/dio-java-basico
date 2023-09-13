@@ -329,6 +329,21 @@ Exemplos sugeridos para nomenclatura de métodos:
 
 ### Tipos e Variáveis
 
+No Java, existem algumas palavras reservadas pata a representação dos tipos de dados básicos que precisam ser manipulados para a construção de programas. Estes tipos de dados são conhecidos como tipos primitivos (Primitive Types)
+
+Os oito tipos primitivos em Java são:
+
+- int
+- byte
+- shot
+- long
+- float
+- double
+- boolean
+- char
+
+Esse tipos são considerados objetos, e portanto, representam valores brutos.
+
 #### Númericos Inteiros e decimais
 
 #### Tipos lógicos

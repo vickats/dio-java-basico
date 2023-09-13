@@ -6,11 +6,11 @@ public class MinhaClasse {
         // System.out.print("Executando método main com class System e método print()");
 
         // variáveis
-        String meuNome = "Vic";
-        int anoFabricacao = 2022;
-        boolean verdadeira = true;
+        // String meuNome = "Vic";
+        // int anoFabricacao = 2022;
+        // boolean verdadeira = true;
 
-        anoFabricacao = 2023;
+        // anoFabricacao = 2023;
 
         // variavel + método
         String primeiroNome = "Vic";

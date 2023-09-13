@@ -156,8 +156,6 @@ Para começar, é necessário que tenhamos o JDK instalado.
 
 ## Sintaxe Java
 
-### Estrutura Inicial
-
 ### Anatomia das classes
 
 Feita através de palavras pré-definidas pela linguagem com as expressões que utilizamos para determinar o nome de arquivos, classes,a tributos e métodos, sendo comum mesclar expressões do idioma americano com o nosso vocabulário. Uma boa prática é que toda implementação do programa seja escrita na língua inglesa.
@@ -184,7 +182,7 @@ Sintaxe de declaração de uma nova classe:
 - Toda classe executável (que inicializa o programa) precisam ter um método principal => `main`, seguindo um padrão.
 - O método `main` recebe seu nome main, sempre terá a visibilidade `public`, será difinido como `static`, não retornará nenhum valor com `void` e receberá um parâmetro do tipo array de caracteres `String[]`.
 
-### Padrão de nomenclatura
+#### Padrão de nomenclatura
 
 - Arquivo.java: Todo arquivo .java deve começar com letra MAIÚSCULA. Se for composta, a segunda palavra deve também ser maiúscula:
 
@@ -227,7 +225,7 @@ Sintaxe de declaração de uma nova classe:
             int numeroum = 1;
             int longo = 1;
 
-### Declarando variáveis e métodos
+#### Declarando variáveis e métodos
 
 Declarar uma variável em Java segue sempre a seguinte estrutura:
 
@@ -249,11 +247,11 @@ Declara métodos em Java também segue um padrão:
 
     String formatarCep (long cep)
 
-### Identação
+#### Identação
 
 Identar é um termo utilizado para escrever/tabular o código do programa de forma hierárquica, facilitando assim a visualização e o entendimento do programa.
 
-### Organizando arquivos
+#### Organizando arquivos
 
 À medida que nosso sistema vai evoluindo, surgem novos arquivos (código fonte) em nossa estrutura de arquivos do projeto. Isso exige que seja realizado uma organização destes arquivos através de pacotes (packages)/subdiretórios.
 
@@ -290,11 +288,11 @@ A classe pertencente a um paclage deve implementar esse path dentro do seu arqui
         }
     }
 
-### Java Beans
+#### Java Beans
 
 Iniciativa conceitual da comunidade para ter uma estrutura de escrita, como expressamos de forma mais clara e universal as classes, atributos, métodos e pacotes.
 
-#### Variáveis
+##### Variáveis
 
 - Uma variável deve ser clara, sem abreviações ou definição sem sentido;
 - Uma variável é sempre no singular, **exceto quando se referir a um array ou coleção**.
@@ -313,7 +311,7 @@ Iniciativa conceitual da comunidade para ter uma estrutura de escrita, como expr
     String [] emails = {"aluno@escola.com","professor@escola.com"}
     String meuNome = "JOSEPH"
 
-#### Métodos
+##### Métodos
 
 Os métodos deverão ser nomeados como verbos, através de uma mistura de letras minúsculas e maiúsculas. Em princípio todas as letras que compõem o nome devem ser mantidas em minúsculo, com exceção da primeira letra de cada palavra composta, a partir da segunda palavra.
 
@@ -328,3 +326,15 @@ Exemplos sugeridos para nomenclatura de métodos:
     findById(int id){} // não se assuste, você verá muito método em inglês em sua jornada
 
     calcularImprimir(){} // há algo de errado neste método, ele deveria ter uma única finalidade
+
+### Tipos e Variáveis
+
+#### Númericos Inteiros e decimais
+
+#### Tipos lógicos
+
+#### Caracteres
+
+#### Objetos
+
+#### Diferença entre variável e constante

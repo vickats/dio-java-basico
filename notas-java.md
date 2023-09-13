@@ -153,3 +153,178 @@ Para começar, é necessário que tenhamos o JDK instalado.
 - Busque no Google por _Java JDK xxx (versão desejada)_
 
 - Selecione a opção **.exe** de acordo com o seu SO
+
+## Sintaxe Java
+
+### Estrutura Inicial
+
+### Anatomia das classes
+
+Feita através de palavras pré-definidas pela linguagem com as expressões que utilizamos para determinar o nome de arquivos, classes,a tributos e métodos, sendo comum mesclar expressões do idioma americano com o nosso vocabulário. Uma boa prática é que toda implementação do programa seja escrita na língua inglesa.
+
+Sintaxe de declaração de uma nova classe:
+
+    public class MinhaClass {
+      // SEU CÓDIGO AQUI
+    }
+
+- QUASE todas as classes iniciarão com `public class`
+
+  Após o nome, definir o corpo { } , onde iremos compor nossas classes com atributos e métodos:
+
+        public class MinhaClass {
+          // CORPO DA CLASSE
+
+          public static void main(String [] args){
+            // CORPO DO MÉTODO
+          }
+        }
+
+- Dentro de uma aplicação, recomenda-se que somente uma classe possua o método `main`, responsável por iniciar todo o nosso programa.
+- Toda classe executável (que inicializa o programa) precisam ter um método principal => `main`, seguindo um padrão.
+- O método `main` recebe seu nome main, sempre terá a visibilidade `public`, será difinido como `static`, não retornará nenhum valor com `void` e receberá um parâmetro do tipo array de caracteres `String[]`.
+
+### Padrão de nomenclatura
+
+- Arquivo.java: Todo arquivo .java deve começar com letra MAIÚSCULA. Se for composta, a segunda palavra deve também ser maiúscula:
+
+  `Calculadora.java`
+  `CalculadoraCientifica.java`
+
+- Nome da classe no arquivo: a clase deve ter o mesmo nome do arquivo.java:
+
+        public class CalculadoraCientifica {}
+
+- Nome de variável: toda variável deve ser escrita com letra minúscula, porém se a palavra for composta, a primeira letra da segunda palavra deverá ser MAIÚSCULA, exemplo: `ano` e `anoFabricacao`. O nome dessa prática para nomear variáveis dessa forma se chama "camelCase".
+
+  Existe uma regra adicional para variáveis, quando na mesma queremos identificar que ela não sofrerá alteração de valor, exemplo: queremos determinar que uma variável de nome br sempre representará "Brasil" e nunca mudará seu valor, logo, determinamos como escrita o código abaixo, com "final" + todas as letras maiúsculas:
+
+        final String BR = "Brasil"
+        final double PI = 3.14
+        final int ESTADOS_BRASILEIRO = 27
+        final int ANO_2000 = 2000
+
+- Recomendações: Para declarar uma variável nós podemos utilizar caracteres, números e símbolos, porém, devemos seguir algumas regras da linguagem.
+
+  - Deve conter apenas letras, \_ (underline), $ ou os números de 0 a 9;
+  - Deve obrigatoriamente se iniciar por uma letra (preferencialmente), \_ ou $, jamais com número;
+  - Deve iniciar com uma letra minúscula (boa prática – ver abaixo);
+  - Não pode conter espaços;
+  - Não podemos usar palavras-chave da linguagem;
+  - O nome deve ser único dentro de um escopo.
+
+            // Declação inválida de variáveis
+
+            int numero&um = 1; //Os únicos símbolos permitidos são _ e $
+            int 1numero = 1;    //Uma variável não pode começar com númerico
+            int numero um = 1; //Não pode ter espaço no nome da variável
+            int long = 1; //long faz parte das palavras reservadas da linguagem
+
+            // Declaração válida de variáveis
+
+            int numero$um = 1;
+            int numero1 = 1;
+            int numeroum = 1;
+            int longo = 1;
+
+### Declarando variáveis e métodos
+
+Declarar uma variável em Java segue sempre a seguinte estrutura:
+
+    Tipo NomeBemDefinido = Atribuição //atribuição opcional em alguns casos
+
+    // Exemplo
+
+    int idade = 23;
+    double altura = 1.62;
+    Dog spike; // variavel sem atribuição
+
+Declara métodos em Java também segue um padrão:
+
+    TpoRetorno NomeObjetivoNoInfinitivo Parametros(s)
+
+    // Exemplo
+
+    int somar (int numeroUm, int numero2)
+
+    String formatarCep (long cep)
+
+### Identação
+
+Identar é um termo utilizado para escrever/tabular o código do programa de forma hierárquica, facilitando assim a visualização e o entendimento do programa.
+
+### Organizando arquivos
+
+À medida que nosso sistema vai evoluindo, surgem novos arquivos (código fonte) em nossa estrutura de arquivos do projeto. Isso exige que seja realizado uma organização destes arquivos através de pacotes (packages)/subdiretórios.
+
+      Pacote
+        Pacotes de Código-Fonte
+          com.pimenta.modelo
+            Cliente.java
+            Funcionário
+          com.pimenta.pacotes
+            inicio.java
+          com.pimenta.util
+            ValidarCPF.java
+            ValidarEmail.java
+        Bibliotecas
+
+Esse `com.` no nome dos packages refere-se a finalidade do projeto:
+
+- `com.` => comercial
+- `org.` => organizacional
+- `opensource.` ou `org` => opensource
+
+  Com o uso de pacotes, as nossas classes (.java) passam a possuir duas identificações, o nome simples e nome qualificado:
+
+- **Nome Simples**: Nome do arquivo, exemplo ContaBanco.
+- **Nome Qualificado**: Finalidade + Nome do pacote/empresa + nome do arquivo, exemplo: `com.suaempresa.ContaBanco`.
+
+A classe pertencente a um paclage deve implementar esse path dentro do seu arquivo:
+
+    package com.builtech.notifications;
+
+    public class BoletimEstudantil {
+        public static void main(String[] args) {
+
+        }
+    }
+
+### Java Beans
+
+Iniciativa conceitual da comunidade para ter uma estrutura de escrita, como expressamos de forma mais clara e universal as classes, atributos, métodos e pacotes.
+
+#### Variáveis
+
+- Uma variável deve ser clara, sem abreviações ou definição sem sentido;
+- Uma variável é sempre no singular, **exceto quando se referir a um array ou coleção**.
+- Defina um idioma único para suas variáveis. Se você for declarar variáveis em inglês, defina todas em inglês.
+
+**Não recomendado**:
+
+    double salMedio = 1500.23  //variável abreviada, o que dificulta a compreensão
+    String emails = "aluno@escola.com" //confuso se a variável seria um array ou único e-mail
+    String myName = "JOSEPH" //se idioma pt-BR, o valor poder ser de outro idioma mas o nome da variável não
+
+**Recomendado**:
+
+    double salarioMedio=1500.23;
+    String email ="aluno@escola.com";
+    String [] emails = {"aluno@escola.com","professor@escola.com"}
+    String meuNome = "JOSEPH"
+
+#### Métodos
+
+Os métodos deverão ser nomeados como verbos, através de uma mistura de letras minúsculas e maiúsculas. Em princípio todas as letras que compõem o nome devem ser mantidas em minúsculo, com exceção da primeira letra de cada palavra composta, a partir da segunda palavra.
+
+Exemplos sugeridos para nomenclatura de métodos:
+
+    somar(int n1, int n2){}
+
+    abrirConexao(){}
+
+    concluirProcessamento() {}
+
+    findById(int id){} // não se assuste, você verá muito método em inglês em sua jornada
+
+    calcularImprimir(){} // há algo de errado neste método, ele deveria ter uma única finalidade

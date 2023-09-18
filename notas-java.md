@@ -748,3 +748,386 @@ Símbolos especiais, que tem um significado próprio para a linguagem e estão a
 | `equals(arg)` | Comparação valor e referência <br> \* Não é um operador, e sim um método | Verificar se conteúdo de objetos e textos são iguais <br> | _if(numero1.equals(numero2))_                                                   |
 | `&&`          | Lógico                                                                   | Operador "E" - se ambos forem verdadeiros                 | _if(condicao1 && condicao2)_                                                    |
 | `OU`          | Lógico                                                                   | Operador "OU" - se um ou outro for verdadeiro             | _if(condicao1 && condicao2)_                                                    |
+
+### Métodos
+
+- Qual a proposta principal do método ?
+- Qual o tipo de retorno esperado após executar o método ?
+- Quais os parâmetros serão necessários para execução do método ?
+- O método possui o risco de apresentar alguma exceção ?
+- Qual a visibilidade do método ?
+
+Uma classe é definida por atributos e métodos. Já vimos que atributos são, em sua grande maioria, variáveis de diferentes tipos e valores. O smétodos, são em sua maioria, correspondem a funções e sub-rotinas disponíveis dentro da classe.
+
+Boas práticas:
+
+- Deve ser nomeado como verbo
+- Seguir o padrão camelCase
+
+        somar(int n1, int n2){}
+
+        findByid(int id){}
+
+Não existe em Java o conceito de métodos globais. Todos os métodos devem SEMPRE ser definidos dentro de uma classe.
+
+#### Critério de definição de métodos
+
+1. Qual a proposta principal do método ?
+2. Qual o tipo de retorno esperado após executar o método ?
+
+Caso ele não retorne nenhum valor, será representado pela palavra-chave `void`
+
+3.  Quais os parâmetros serão necessários para execução do método ?
+4.  O método possui o risco de apresentar alguma execeção ?
+
+    Prever e tratar a existência de uma exceção (comportamentos inesperados/erros)
+
+5.  Qual a visibilidade do método ?
+
+    Pode ser necessário que o método seja visível a toda aplicação, somente em mesmo pacote, através de herança ou somente a nível a própria classe.
+
+Abaixo, temos um exemplo de uma classe com dois métodos e suas respectivas considerações:
+
+      public class MyClass {
+
+        public double somar(int num1, int num2){
+          //LOGICA - FINALIDADE DO MÉTODO
+          return ... ;
+        }
+
+        public void imprimir(String texto){
+          //LOGICA - FINALIDADE DO MÉTODO
+          //AQUI NÃO PRECISA DO RETURN
+          //POIS NÃO SERÁ RETORNADO NENHUM RESULTADO
+        }
+        // throws Exception : indica que o método ao ser utilizado
+        // poderá gerar uma exceção
+        public double dividir(int dividendo, int divisor) throws Exception{}
+
+        // este método não pode ser visto por outras classes no projeto
+        private void metodoPrivado(){}
+
+        //alguns equívocos estruturais
+        public void validar(){
+          //este método deveria retornar algum valor
+          //no caso boolean (true ou false)
+        }
+        public void calcularEnviar(){
+          //um método deve representar uma única responsabilidade
+        }
+        public void gravarCliente(String nome, String cpf, Integer telefone, ....){
+          //este método tem a finalidade de gravar
+          //informações de um cliente, por que não criar
+          //um objeto cliente e passar como parâmetro ?
+          //veja abaixo
+        }
+        public void gravarCliente(Cliente cliente){}
+        //ou
+        public void gravar(Cliente cliente){}
+      }
+
+### Escopo
+
+O escopo pode ser entendido como o ambiente onde uma variável pode ser acessada. Em Java, o escopo de variáveis **vai de acordo com o bloco onde ela foi declarada.**
+
+A variável é criada no primeiro acesso à ela, se tornando incessível após o interpretador sair do bloco de execução ao qual ela pertence. Portanto, esta variável não pode ser lida ou manipulada por rotinas e códigos que estão fora do seu bloco de declaração, ou seja, fora do escopo da variável.
+
+Em uma Classe, podemos visualizar a diferença de escopos. Os atributos (variáveis) são declarados no corpo principal da Classe, sendo portanto acessíveis por todos os métodos.
+
+Caso você declare uma variável DENTRO DE UM MÉTODO, o escopo desssa variável está limitado apenas ao corpo desse método, ou seja, dentro das chaves que limitam o método.
+
+Uma parte fundamental na elaboração de algoritmos simples ou complexos é determinar a localização do código em questão. Sem um domínio sobre escopo de código, seu projeto tende a conter falahs estruturais e comprometer a proposta principal da aplicação.
+
+      public class Conta{
+        // varivel da classe Conta
+        double saldo = 10.0;
+
+        public void sacar (Double valor){
+          // variavel local de método
+          double novoSaldo = saldo - valor;
+        }
+        public void imprimirSaldo(){
+
+          // disponivel em toda classe
+          System.out.println(saldo);
+
+          // somente o método sacar conhece esta variavel
+          System.out.println(novoSaldo);
+        }
+        public double calcularDividaExponencial(){
+          //variavel local de método
+          double valorParcela = 50.0;
+          double valorMontante = 0.0; // começando a variável com valor zero
+          for(int x=1; x<=5; x++) {//x variável de escopo de fluxo
+            //esta variável será reiniciada a cada execução for
+            double valorCalculado = valorParcela * x;
+            valorMontante = valorMontante + valorCalculado;
+          }
+          //escopo de fluxo
+          //x e valorCalculado nunca estarão disponíveis fora do for
+
+          return valorMontante;
+        }
+
+        }
+
+### Palavras reservadas
+
+A linguagem Java possui 52 palavras reservadas, classificadas em grupos e escritas com letra minúscula.
+
+- Controle de pacotes
+
+  `import`: importa pacotes ou classes para dentro do código
+
+  `package`: especifica a que pacote, todas as classes de um arquivo pertencem
+
+- Modificadores de acesso
+
+  `public`: acesso de qualquer classe
+
+  `private`: acesso apenas dentro da classe
+
+  `protected`: acesso por classes no mesmo pacote e subclasses
+
+- Primitivos
+
+  `boolean`: um valor indicando verdadeiro ou falso
+
+  `byte`: um inteiro de 8 bits (signed)
+
+  `char`: um character unicode (16-bit unsigned)
+
+  `double`: um número de ponto flutuante de 64 bits (signed)
+
+  `float`: um número de ponto flutuante de 32 bits (signed)
+
+  `int`: um inteiro de 32 bits (signed)
+
+  `long`: um inteiro de 64 bits (signed)
+
+  `short`: um inteiro de 32 bits (signed)
+
+  `void`: indica que o método não tem retorno de valor
+
+- Modificadores de classes, variáveis ou métodos
+
+  `abstract`: classe que não pode ser instanciada ou método que precisa ser implementado, por uma subclasse não abstrata
+
+  `class`: especifica uma classe
+
+  `extends`: indica a superclasse que a subclasse está estendendo
+
+  `final`: impossibilita que uma classe seja estendida, que um método seja sobrescrito ou que uma variável seja reinicializada
+
+  `implements`: indica as interfaces que uma classe irá implementar
+
+  `interface`: especifica uma interface
+
+  `native`: indica que um método está escrito em uma linguagem dependente de plataforma, como o C
+
+  `new`: instancia um novo objeto, chamando seu construtor
+
+  `static`: faz um método ou variável pertencer à classe ao invés de às instâncias
+
+  `strictfp`: usado em frente a um método ou classe para indicar que os números de ponto flutuante seguirão as regras de ponto flutuante, em todas as expressões
+
+  `synchronized`: indica que um método só pode ser acessado por uma thread de cada vez
+
+  `transient`: impede a serialização de campos
+
+  `volatile`: indica que uma variável pode ser alterada durante o uso de threads.
+
+- Controle de fluxo dentro de um bloco de código
+
+  `break`: sai do bloco de código em que ele está
+
+  `case`: executa um bloco de código dependendo do teste do switch
+
+  `continue`: pula a execução do código que viria, após essa linha e vai para a próxima passagem do loop
+
+  `default`: executa esse bloco de código caso nenhum dos teste de switch-case seja verdadeiro
+
+  `do`: executa um bloco de código uma vez, e então realiza um teste em conjunto com o while para determinar se o bloco deverá ser executado novamente
+
+  `else`: executa um bloco de código alternativo caso o teste "if" seja falso
+
+  `for`: usado para realizar um loop condicional de um bloco de código
+
+  `if`: usado para realizar um teste lógico de verdadeiro ou falso
+
+  `instanceof`: determina se um objeto é uma instância de determinada classe, superclasse ou interface
+
+  `return`: retorna um método sem executar qualquer código, que venha depois desta linha (também pode retornar uma variável)
+
+  `switch`: indica a variável a ser comparada nas expressões case
+
+  `while`: executa um bloco de código repetidamente enquanto a condição for verdadeira
+
+- Tratamento de erros
+
+  `assert`: testa uma expressão condicional, para verificar uma suposição do programador
+
+  `catch`: declara o bloco de código usado para tratar uma exceção;
+
+  `finally`: bloco de código, após um try-catch, que é executado independentemente do fluxo de programa seguido ao lidar com uma exceção
+
+  `throw`: usado para passar uma exceção para o método que o chamou
+
+  `throws`: indica que um método pode passar uma exceção para o método que o chamou
+
+  `try`: bloco de código que tentará ser executado, mas que pode causar uma exceção
+
+- Variáveis de referência
+
+  `super`: refere-se a superclasse imediata
+
+  `this`: refere-se a instância atual do objeto
+
+- Palavras reservadas não utilizadas
+
+  `const`: Não utilize para declarar constantes; use public static final
+
+  `goto`: não implementada na linguagem Java, por ser considerada prejudicial
+
+- Literais reservados
+
+  De acordo com a Java Language Specification, **null**, **true** e **false** são tecnicamente chamados de valores literais, e não keywords. Se você tentar criar algum identificador com estes valores, você também terá um erro de compilação.
+
+**Escopo de uso**
+
+| Uso      | Palavras                                                                      | Observação                                                         |
+| -------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Arquivo  | package, import, static                                                       |                                                                    |
+| Classe   | public ou protected ou private + final ou abstract + extends ou implements.   | **private** (em caso de classe interna), **final** ou **abstract** |
+| Método   | public ou protected ou private + static ou final ou abstract + void e return. | **void** em caso de não ter retorno ou **return** se houver        |
+| Atributo | public ou protected ou private + static ou final + tipo primitivo             | \*\*\*\*                                                           |
+
+**Palavras "opostas"**
+
+Assim como nas classificações gramaticais da língua portuguesa, existem algumas palavras que são completamente opostas (antônimas) na linguagem Java conforme tabela abaixo:
+
+| Palavra   | Palavra      | Explicação                                                                                                                                                                                                                                                                 |
+| --------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `package` | `impor`t     | Enquanto package determina o diretório real da classe, o import informa de onde será importada a classe. Isso porque, podemos ter classes de mesmo nome.                                                                                                                   |
+| `extends` | `implements` | enquanto **extends** determina que uma classe estende outra classe, **implements** determina que uma classe implementa uma interface, porém nunca o contrário.                                                                                                             |
+| `final`   | `abstract`   | enquanto **final** determina fim de alteração de valor ou lógica comportamental, **abstrac**t em métodos, exige que sub-classes precisarão definir comportamento e um método abstrato. NOTA: Se uma classe contém um único método abstrato, toda classe precisa ser.       |
+| `throws`  | `throw`      | Esta é uma das situações mais complicadas, de compreensão destas duas palavras. Enquanto a **throws** determina que um método pode lançar uma exceção, **throw** é a implementação que dispara a exceção**. Vamos conhecer mais sobre este conceito no assunto Exceções.** |
+
+### Documentação
+
+Uma das maiores características da linguagem Java é que, desde suas primeiras versões, tínhamos em nossas mãos, uma documentação rica e detalhada dos recursos da linguagem.
+Conforme site oficial, podemos compreender e explorar, todos os recursos organizados por pacotes e classes bem específicas, sem nem mesmo escrever uma linha de código.
+
+Hoje, costuma-se afirmar que, para se tornar um desenvolvedor nível avançado, é um requisito imprescindível adquirir a habilidade de compreender, a documentação oficial da linguagem e dos frameworks que são incorporados nos projetos atuais.
+
+Aqui, temos o link da documentação de uma das principais classes da linguagem Java:
+
+[Exemplo de documentação da classe String na versão 7 da linguagem](https://docs.oracle.com/javase/7/docs/api/java/lang/String.html)
+
+#### Tags
+
+Mas e quais as informações, que obtemos através de classes documentadas, na linguagem ? Java Documentation é composto por tags que, representam dados relevantes para a compreensão da proposta de uma classe e os conjuntos de seus métodos e atributos conforme tabela abaixo:
+
+| Tag      | Descrição                                              |
+| -------- | ------------------------------------------------------ |
+| @autor   | Autor/Criador                                          |
+| @version | Versão do recurso disponibilizado                      |
+| @since   | Versão / Data de ínicio da disponibilização do recurso |
+| @param   | Descrição dos parâmetros dos métodos criados           |
+| @return  | Definição do tipo de retorno de um método              |
+| @throws  | Se o método lança alguma exceção                       |
+
+Abaixo, iremos ilustrar a classe Calculadora com um exemplo de documentação, destacando as tags mais utilizadas:
+
+    /**
+    * <h1>Calculadora</h1>
+    * A Calculadora realiza operações matemáticas entre números inteiros
+    * <p>
+    * <b>Note:</b> Leia atentamente a documentação desta classes
+    * para desfrutar dos recursos oferecidos pelo autor
+    *
+    * @author  Gleyson Sampaio
+    * @version 1.0
+    * @since   01/01/2022
+    */
+    public class Calculadora {
+        /**
+      * Este método é utilizado para somar dois números inteiros
+      * @param numeroUm este é o primeiro parâmetro do método
+      * @param numeroDois este é o segundo parâmetro do método
+      * @return int o resultado deste método é a soma dos dois números.
+      */
+        public int somar(int numeroUm, int numeroDois) {
+            return  numeroUm + numeroDois;
+        }
+    }
+
+#### Tipos de comentários
+
+    // Olá, eu sou um comentário em uma única linha
+
+    /* Olá,
+    * Eu sou um comentario
+    * que posso ser mais detalhadod
+    * quando necessário
+    */
+
+    /**
+    * Estas duas estrelinhas acima
+    * é para identificar que você
+    * pretende elaborar um comentário
+    * a nível de documentação.
+    * Que incrível !!!
+    */
+
+Um comentário, não possui a finalidade de amenizar um algoritmo não estruturado, conforme as convenções da linguagem:
+
+    /*
+    * Este método foi elaborado as pressas
+    * por isso eu abrevei o nome das variáveis
+    * mas olha, ele tem a finalidade de somar ou  multiplicar
+    * dois números
+    * /
+    public int somaMultiplica (int n, int x, String m){
+        int r = 0; // r é igual ao resultado
+        if (m == "M"){ // M= multiplicação
+            r= n * x;
+        }else{
+            // se não soma mesmo
+            r = n + x
+        }
+        return r;
+    }
+
+#### Javadoc
+
+Javadoc é um gerador de documentação criado pela [Sun Microsystems](https://pt.wikipedia.org/wiki/Sun_Microsystems) , para documentar a [API](https://pt.wikipedia.org/wiki/API) dos programas em [Java](https://pt.wikipedia.org/wiki/Linguagem_de_programa%C3%A7%C3%A3o_Java), a partir do [código-fonte](https://pt.wikipedia.org/wiki/C%C3%B3digo-fonte). O resultado é expresso em [HTML](https://pt.wikipedia.org/wiki/HTML). É constituído, basicamente, por algumas marcações muitos simples, inseridas nos comentários do programa.
+Este sistema, é o padrão de documentação de classes em Java, onde muitas das [IDEs](https://pt.wikipedia.org/wiki/Ambiente_de_desenvolvimento_integrado) desta linguagem irão automaticamente gerar um Javadoc em [HTML](https://pt.wikipedia.org/wiki/HTML).
+
+[Javadoc - Wikipedia](https://pt.wikipedia.org/wiki/Javadoc)
+
+Criando nossa documentação no formato html, para disponibilizar via web.
+
+    // No terminal execute o comando abaixo
+
+    javadoc -encoding UTF-8 -docencoding ISO-8859-1  -d ../docs  src/*.java
+
+### Terminal e Argumentos
+
+Nem sempre executamos nosso programa Java pela IDE, já pensou, nossos clientes tendo que instalar o Eclipse ou VsCode para rodar o sistema em sua empresa ?
+
+Com a JVM devidamente configurada, nós podemos criar um executável do nosso programa e disponibilizar o instalador para qualquer sistema operacional.
+
+No nosso caso, iremos aprender como executar um programa Java via terminal, como MS - DOS, gitbash ou terminal do VsCode.
+
+Vamos criar uma classe chamada `MinhaClasse.java `com o código abaixo:
+
+    public class MinhaClasse {
+        public static void main(String[] args) {
+            System.out.println("Oi, fui executado pelo Terminal");
+        }
+    }
+
+Observe que nosso projeto Java criado por uma IDE, terá uma pasta chamada **bin**. É nesta pasta que ficarão os arquivos **.class**, o nosso `bytecode`.
+
+Mesmo usando uma IDE, nós sempre precisaremos identificar aonde se encontram as classes do nosso projeto, no meu caso está em: **C:\estudos\dio-trilha-java-basico\java-terminal**.

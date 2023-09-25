@@ -1131,3 +1131,443 @@ Vamos criar uma classe chamada `MinhaClasse.java `com o código abaixo:
 Observe que nosso projeto Java criado por uma IDE, terá uma pasta chamada **bin**. É nesta pasta que ficarão os arquivos **.class**, o nosso `bytecode`.
 
 Mesmo usando uma IDE, nós sempre precisaremos identificar aonde se encontram as classes do nosso projeto, no meu caso está em: **C:\estudos\dio-trilha-java-basico\java-terminal**.
+
+## Controles de Fluxo
+
+É a habilidade de ajustar a maneira como um programa realiza suas tarefas. Por meio de instruções especiais, chamadas de comandos, essas tarefas podem ser executadas condicionalmente, repetidamente ou excepcionalmente.
+
+### Estruturas condicionais: if-else, switch-case
+
+A estrutura condicional possibilita a escolha de um grupo de ações e comportamentos a serem executados quando determinadas condições são satisfeitas ou não. A estrutura condicional pode ser **Simples** ou **Composta**.
+
+#### Condicionais Simples
+
+É quando ocorre uma validação de execução de fluxo somente quando a condição for positiva.
+
+![Condicional Simples](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-e843dc080767f890ab51c27fb7d39c39f76355a3%2Fimage%20(6)%20(1)%20(1)%20(1).png?alt=media>)
+
+    // CaixaEletronico.java
+
+    public class CaixaEletronico {
+      public static void main(String[] args) {
+
+        double saldo = 25.0;
+        double valorSolicitado = 17.0;
+
+        if(valorSolicitado < saldo)
+          saldo = saldo - valorSolicitado;
+
+          System.out.println(saldo);
+
+      }
+    }
+
+#### Condicionais Composta
+
+Algumas vezes, o nosso programa deverá seguir mais de uma jornada de execução, condionado a uma regra de negócio, este cenário é denominado **Estrutura Condicional Composta**
+
+![Condicional Composta](https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-78673a798e8cfeb3846f2a644476eea6445d3792%2Fif-else.png?alt=media)
+
+    // ResultadoEscolar.java
+
+    public class ResultadoEscolar {
+      public static void main(String[] args) {
+
+        int nota = 6;
+
+        if(nota >= 7)
+          System.out.println("Aprovado");
+
+        else
+          System.out.println("Reprovado");
+      }
+    }
+
+Vale ressaltar aqui, que no Java, em uma condição**if/else** às vezes necessitamos adicionar um bloco de { },se a lógica conter mais de uma linha.
+
+#### Condicionais Encadeadas
+
+Em um controle de fluxo condicional, nem sempre nos limitamos ao se (if) e senão (else), poderemos ter uma terceira, quarta e ou inúmeras condições.
+
+![Condicional encadeada](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-be0ccceecead9c90abe541aa7ebb5e1ba781033a%2Fimage%20(11)%20(1)%20(1)%20(1)%20(1)%20(1).png?alt=media>)
+
+    // ResultadoEscolar.java
+
+    public class ResultadoEscolar {
+      public static void main(String[] args) {
+          int nota = 6;
+
+          if (nota >= 7)
+            System.out.println("Aprovado");
+          else if (nota >= 5 && nota < 7)
+            System.out.println("Recuperação");
+          else
+            System.out.println("Reprovado");
+      }
+    }
+
+#### Condição Ternária
+
+Como vimos em operadores, podemos abreviar nosso algoritmo condicional, refatorando com o conceito de operador ternário. Vamos refatorar os exemplos acima, para ilustrar o poder deste recurso:
+
+    // Cenário 1
+
+    public class ResultadoEscolar {
+      public static void main(String[] args) {
+        int nota = 7;
+        String resultado = nota >=7 ? "Aprovado" : "Reprovado";
+        System.out.println(resultado);
+      }
+    }
+
+
+    // Cenário 2
+
+    public class ResultadoEscolar {
+      public static void main(String[] args) {
+        int nota = 6;
+        String resultado = nota >=7 ? "Aprovado" : nota >=5 && nota <7 ? "Recuperação" : "Reprovado";
+        System.out.println(resultado);
+      }
+    }
+
+#### Switch Case
+
+A estrutura **switch**, compara o valor de cada caso, com o da variável sequencialmente e sempre que encontra um valor correspondente, executa o código associado ao caso. Para evitar que as comparações continuem a ser executadas, após um caso correspondente ter sido encontrado, acrescentamos o comando **break** no final de cada bloco de códigos. O comando **break**, quando executado, encerra a execução da estrutura onde ele se encontra.
+
+Vamos imaginar que precisaremos imprimir uma medida, com base em mapa de valores, exemplo:
+
+| Sigla | Tamanho |
+| ----- | ------- |
+| P     | PEQUENO |
+| M     | MÉDIO   |
+| G     | GRANDE  |
+
+    // SistemaMedida.java
+
+      // Modo condicional if/else
+
+      public class SistemaMedida {
+        public static void main(String[] args) {
+          String sigla = "M";
+
+          if(sigla == "P")
+            System.out.println("PEQUENO");
+          else if(sigla == "M")
+            System.out.println("MÉDIO");
+          else if(sigla == "G")
+            System.out.println("GRANDE");
+          else
+            System.out.println("INDEFINIDO");
+
+        }
+      }
+
+      // Modo condicional switch / case
+
+      public class SistemaMedida {
+        public static void main(String[] args) {
+          String sigla = "M";
+
+          switch (sigla) {
+          case "P":{
+            System.out.println("PEQUENO");
+            break;
+          }
+          case "M":{
+            System.out.println("MÉDIO");
+            break;
+          }
+          case "G":{
+            System.out.println("GRANDE");
+            break;
+          }
+          default:
+            System.out.println("INDEFINIDO");
+          }
+
+
+        }
+      }
+
+Observe que a nível de sintaxe, não tivemos nenhum ganho quanto a redução de códigos e ainda tivemos mais uma preocupação: informar a palavra break em cada alternativa.
+
+Porém, um cenário que poderíamos adequar o uso do switch/case para melhorar nosso algoritmo seria conforme ilustração abaixo:
+Imagina que fomos requisitados a criar um sistema de plano telefônico onde:
+
+- O sistema terá 03 planos: BASIC, MIDIA , TURBO;
+- BASIC: 100 minutos de ligação;
+- MÍDIA: 100 minutos de ligação + WhatsApp e Instagram grátis;
+- TURBO: 100 minutos de ligação + WhatsApp e Instagram grátis + 5 GB Youtube.
+
+        // Modo condicional convencional
+
+        public class PlanoOperadora {
+          public static void main(String[] args) {
+            String plano = "M"; //M / T
+
+            if(plano == "B") {
+              System.out.println("100 minutos de ligação");
+            }else if(plano == "M") {
+              System.out.println("100 minutos de ligação");
+              System.out.println("WhatsApp e Instagram grátis");
+            }else if(plano == "T") {
+              System.out.println("100 minutos de ligação");
+              System.out.println("WhatsApp e Instagram grátis");
+              System.out.println("5Gb Youtube");
+            }
+
+
+          }
+        }
+
+        // Modo condicional switch/case
+
+        public class PlanoOperadora {
+          public static void main(String[] args) {
+            String plano = "M"; // M / T
+
+            switch (plano) {
+              case "T": {
+                System.out.println("5Gb Youtube");
+              }
+              case "M": {
+                System.out.println("WhatsApp e Instagram grátis");
+              }
+              case "B": {
+                System.out.println("100 minutos de ligação");
+              }
+            }
+          }
+        }
+
+### Estruturas de repetição: for, while, do-while
+
+> Laços de repetição, também conhecidos como laços de iteração ou simplesmente loops, são comandos que permitem iteração de código, ou seja, que comandos presentes no bloco sejam repetidos diversas vezes.
+>
+> https://diegomariano.com/lacos-de-repeticao-2
+
+Laços ou repetições são representados pelas seguintes estruturas:
+
+- **For** (para)
+- **While** (enquanto)
+- **Do While** (faça enquanto)
+
+<hr>
+
+#### For
+
+O comando for (na tradução literal para a língua portuguesa “para”) permite que uma variável contadora, seja testada e incrementada a cada iteração, sendo essas informações definidas na chamada do comando. O comando for recebe como entrada uma variável contadora, a condição para continuar a execução e o valor de incrementação.
+
+A estrutura de sintaxe do controle de repetição `for` é exibida abaixo:
+
+    //estrutura do controle de fluxo for
+
+    for (bloco de inicialização; expressão booleana de validação; bloco de atualização)
+    {
+        // comando que será executado até que a
+        // expressão de validação torne-se falsa
+    }
+
+Vamos imaginar que Joãozinho precisa contar até 20 carneirinhos, para pegar no sono:
+
+    // ExemploFor.java
+
+    public class ExemploFor {
+      public static void main(String[] args) {
+        for(int carneirinhos = 1 ; carneirinhos <=20; carneirinhos ++) {
+          System.out.println(carneirinhos + " - Carneirinho(s)");
+        }
+      }
+    }
+
+Vamos explicar a estrutura do código acima:
+
+##### For position
+
+1.  int carneirinhos `= 1;` ⇨ O programa entende que a variável carneirinhos, começa com o valor igual a 1 e isso acontece somente uma vez;
+2.  carneirinhos `< = 20;` ⇨ O programa verifica se a variável carneirinhos, ainda é menor que 20;
+3.  O programa começa a executar o algoritmo, no nosso caso, imprimir a quantidade de carneirinhos em contagem;
+4.  carneirinhos `++` ⇨ O programa aumenta em mais 1, o valor da variável carneirinhos;
+5.  O fluxo é finalizado, quando a variável carneirinhos for igual a 20.
+
+        // Outras estruturas
+
+        //estrutura 1
+
+        for(int carneirinhos = 1 ; carneirinhos <=20; carneirinhos ++) {
+            System.out.println(carneirinhos + " - Carneirinho(s)");
+        }
+
+        //estrutura 2
+        //o que importa é somente o bloco condicional
+
+        int carneirinhos = 1;
+        for( ; carneirinhos <=20; ) {
+            System.out.println(carneirinhos + " - Carneirinho(s)");
+            carneirinhos ++;
+        }
+
+        //for( somente 1x ; deve ser uma expresão boolean; acontecerá a cada final da execução ) { }
+
+Também usamos o controle de fluxo `for` , para interagir sobre arrays e coleções:
+
+    // ExemploFor.java
+
+    public class ExemploFor {
+      public static void main(String[] args) {
+        String alunos[] = { "FELIPE", "JONAS", "JULIA", "MARCOS" };
+
+        for (int x=0; x<alunos.length; x++) {
+          System.out.println("O aluno no indice x=" + x + " é " + alunos[x]);
+        }
+
+      }
+    }
+
+> Observe que, como os arrays começam com índice igual a 0 (zero), iniciamos a nossa variável x também com valor zero e validamos a quantidade de repetições, a partir da quantidade de elementos do array.
+
+#### For Each
+
+O uso do `for / each` está fortemente relacionado, com um cenário onde contenha um array ou coleção, e assim , a interação é baseada nos elementos da coleção.
+
+    // ExemploFor.java
+
+    public class ExemploFor {
+      public static void main(String[] args) {
+        String alunos [] =  {"FELIPE","JONAS","JULIA","MARCOS"};
+
+        //Forma abreviada
+        for(String aluno : alunos) {
+          System.out.println(alunos);
+        }
+
+      }
+    }
+
+1. `String aluno : alunos` ⇨ De forma abreviada, é criada uma variável nome obtendo um elemento do vetor a cada ocorrência;
+2. A impressão de cada aluno é realizada.
+
+#### Break e Continue
+
+**Break** significa quebrar, parar, frear, interromper. E é isso que se faz, quando o Java encontra esse comando pela frente. **Continue**, como o nome diz, ele 'continua' o laço. O comando `break` interrompe o laço, já o `continue` interrompe somente a iteração atual.
+
+    // class ExemploBreakContinue.java
+
+    public class ExemploBreakContinue {
+      public static void main(String[] args) {
+
+      for(int numero = 1; numero <=5; numero ++){
+        if(numero==3)
+          break;
+
+        System.out.println(numero); // 1 2
+
+      }
+
+        }
+    }
+
+    // class ExemploBreakContinue.java
+    public class ExemploBreakContinue {
+      public static void main(String[] args) {
+
+      for(int numero = 1; numero <=5; numero ++){
+        if(numero==3)
+          continue;
+
+        System.out.println(numero); // 1 2 4 5
+
+      }
+
+        }
+    }
+
+> Observem que sempre o `break` e `continue`, está condicionado a um critério de negócio.
+
+#### While
+
+O laço **while** (na tradução literal para a língua portuguesa “enquanto”) determina que, enquanto uma condição for válida, o bloco de código será executado. O laço **while**, testa a condição antes de executar o código, logo, caso a condição seja inválida no primeiro teste o bloco nem será executado.
+
+A estrutura de sintaxe, do controle de repetição **while** é exibida abaixo:
+
+    //estrutura do controle de fluxo while
+
+    while (expressão booleana de validação)
+    {
+        // comando que será executado até que a
+        // expressão de validação torne-se falsa
+    }
+
+Joãozinho recebeu R$ 50,00 de mesada e foi em uma loja de doces gastar todo o seu dinheiro, logo, enquanto o valor dos doces não igualar a R$ 50,00 ele foi adicionando itens no carrinho.
+
+    // ExemploWhile.java
+
+    import java.util.concurrent.ThreadLocalRandom;
+    public class ExemploWhile {
+    public static void main(String[] args) {
+      double mesada = 50.0;
+            while(mesada>0) {
+                Double valorDoce = valorAleatorio();
+                if(valorDoce > mesada)
+                    valorDoce = mesada;
+
+                System.out.println("Doce do valor: " + valorDoce + " Adicionado no carrinho");
+                mesada = mesada - valorDoce;
+            }
+            System.out.println("Mesada:" + mesada);
+            System.out.println("Joãozinho gastou toda a sua mesada em doces");
+
+            /*
+            * Não se preocupe quanto a formatação de valores
+            * Iremos explorar os recursos de formatação em breve !!
+            */
+      }
+      private static double valorAleatorio() {
+      return ThreadLocalRandom.current().nextDouble(2, 8);
+      }
+    }
+
+#### Do While
+
+O laço **do / while** (na tradução literal para a língua portuguesa “faça…enquanto”), assim como o laço while, considera que, enquanto uma determinada condição for válida, o bloco de código será executado. Entretanto, **do / while** testa a condição após executar o código, sendo assim, mesmo que a condição seja considerada inválida, no primeiro teste o bloco será executado pelo menos uma vez.
+
+A estrutura de sintaxe do controle de repetição **do / while** é exibida abaixo:
+
+    //estrutura do controle de fluxo do while
+
+    do
+    {
+        // comando que será executado até que a
+        // expressão de validação torne-se falsa
+    }
+    while (expressão booleana de validação);
+
+Joãozinho resolveu ligar para o seu amigo, dizendo que hoje se entupiu de comer docinhos:
+
+    // ExemploDoWhile.java
+
+    import java.util.Random;
+    public class ExemploDoWhile {
+      public static void main(String[] args) {
+        public static void main(String[] args) {
+          System.out.println("Discando...");
+
+          do {
+            //excutando repetidas vezes até alguém atender
+            System.out.println("Telefone tocando");
+
+          }while(tocando());
+
+          System.out.println("Alô !!!");
+        }
+        private static boolean tocando() {
+          boolean atendeu = new Random().nextInt(3)==1;
+          System.out.println("Atendeu? " + atendeu);
+          //negando o ato de continuar tocando
+          return ! atendeu;
+        }
+      }
+    }
+
+### Estruturas de exceções: try-catch-finally, throw

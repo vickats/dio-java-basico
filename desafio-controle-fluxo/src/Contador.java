@@ -9,20 +9,20 @@ public class Contador {
 		int parametroDois = terminal.nextInt();
 
         try {
-            Integer [] qntdIteracoes = {parametroUm - parametroDois};
+            int[] qntdIteracoes = {parametroUm - parametroDois};
             //chamando método contendo a lógica de contagem
-            contar(parametroUm, parametroDois);
+            contar(parametroUm, parametroDois, qntdIteracoes);
         }catch(ParametrosInvalidosExeception e){
             System.out.println("O segundo parâmetro deve ser maior que o primeiro");
         }
     }
-    static void contar(int parametroUm, int parametroDois) throws ParametrosInvalidosExeception{
+    static void contar(int parametroUm, int parametroDois, int[] qntdIteracoes) throws ParametrosInvalidosExeception{
 
         //validar se parametroUm é MAIOR que parametroDois e lançar a exceção
         if(parametroUm > parametroDois)
             throw new ParametrosInvalidosExeception();
 
-        int contagem = parametroDois - parametroUm;
+        // int contagem = parametroDois - parametroUm;
         // realizar o for para imprimir os números com base na variavel contagem
        
         for(int numero = 0; numero < qntdIteracoes.length; numero++ ){

@@ -1132,7 +1132,7 @@ Observe que nosso projeto Java criado por uma IDE, terá uma pasta chamada **bin
 
 Mesmo usando uma IDE, nós sempre precisaremos identificar aonde se encontram as classes do nosso projeto, no meu caso está em: **C:\estudos\dio-trilha-java-basico\java-terminal**.
 
-## Controles de Fluxo
+## Controle de Fluxo
 
 É a habilidade de ajustar a maneira como um programa realiza suas tarefas. Por meio de instruções especiais, chamadas de comandos, essas tarefas podem ser executadas condicionalmente, repetidamente ou excepcionalmente.
 
@@ -1703,3 +1703,415 @@ Nós podemos criar nossas próprias exceções, baseadas em regras de negócio e
               //simulando um cep formatado
               return "23.765-064";
         }
+
+## Programação Orientada a Objeto
+
+### Conceito de POO
+
+Você já ouviu falar a expressão, linguagem de baixo e de alto nível?
+
+À medida que a tecnologia vem evoluindo, as linguagens de programação também, e é esta transição natural, que determina, quando estamos nos referindo a linguagem de baixo e alto nível.
+
+**Baixo nível**: São linguagens que estão mais próximas, da interpretação da máquina, diante do algoritmo desenvolvido. Exemplo: **Linguagem Assembly e C**.
+
+**Alto nível**: São linguagens que disponibilizam, uma proposta de sintaxe (forma de escrever processos para serem executados pelo computador) mais próxima de interpretação humana. Exemplo: **Java, JavaScript, Python e C++**
+
+Exemplo de um simples Hello World em **Assembly** versus **Python**:
+
+**Assembly**:
+
+    section	.text
+
+      global _start
+
+    _start:
+
+      mov	edx, len
+
+      mov	ecx, msg
+
+      mov	ebx, 1
+
+      mov	eax, 4
+
+      int	0x80
+
+      mov	eax, 1
+
+      int	0x80
+
+    section	.data
+
+    msg	db	'Hello, world!',0xa
+
+    len	equ	$ - msg
+
+**Python**:
+
+    print('Hello, world!')
+
+#### Programação Estruturada
+
+**A programação estruturada** é um [paradigma de programação](https://stringfixer.com/pt/Programming_paradigm), que visa melhorar a clareza, a qualidade e o tempo de desenvolvimento de um [programa de computador](https://stringfixer.com/pt/Computer_program), fazendo uso extensivo, das construções de fluxo de controle estruturado de seleção ( [if / then / else](<https://stringfixer.com/pt/Conditional_(computer_programming)>) ) e repetição (while e [for](https://stringfixer.com/pt/For_loop) ), [estruturas de bloco](<https://stringfixer.com/pt/Block_(programming)>) e [sub-rotinas](https://stringfixer.com/pt/Subroutines) .
+
+O que devemos ter em mente, é que na programação estruturada, implementamos algoritmos com estruturas sequenciais denominados de procedimentos lineares, podendo afetar o valor das variáveis de escopo local ou global em uma aplicação.
+
+#### Programação Orientada a Objetos
+
+POO é um [paradigma de programação](https://pt.wikipedia.org/wiki/Paradigma_de_programa%C3%A7%C3%A3o), baseado no conceito de "[objetos](<https://pt.wikipedia.org/wiki/Objeto_(ci%C3%AAncia_da_computa%C3%A7%C3%A3o)>)", que podem conter [dados](https://pt.wikipedia.org/wiki/Dados) na forma de [campos](<https://pt.wikipedia.org/wiki/Campo_(ci%C3%AAncia_da_computa%C3%A7%C3%A3o)>), também conhecidos como atributos, e códigos, na forma de [procedimentos](https://pt.wikipedia.org/wiki/Procedimento), também conhecidos como [métodos](<https://pt.wikipedia.org/wiki/M%C3%A9todo_(programa%C3%A7%C3%A3o)>).
+
+O que precisamos entender, é que cada vez mais as linguagens se adequam ao cenário real, proporcionando assim, que o programador desenvolva algoritmos mais próximo de fluxos comportamentais, logo, tudo ao nosso redor é representado como Objeto.
+
+> Enquanto a programação estruturada é voltada a procedimentos e funções, definidas pelo usuário, a programação orientada a objetos é voltada a conceitos, como o de classes e objetos.
+
+### Classes
+
+Toda a estrutura de código, na linguagem Java é distribuído em arquivos, com extensão **.java** denominados de **classe**.
+
+As classes existentes em nosso projeto, serão composta por:
+
+**Identificador, Características e Comportamentos**
+
+- **Classe** (_class_): A estrutura e/ou representação que direciona a criação dos objetos de mesmo tipo.
+- **Identificador** (identity): Propósito existencial aos objetos que serão criados.
+- **Características** (_states_): Também conhecido como **atributos** ou **propriedades**, é toda informação que representa o estado do objeto.
+- **Comportamentos** (behavior): Também conhecido como **ações** ou **métodos**, é toda parte comportamental que um objeto dispõe.
+- **Instanciar** (new): É o ato de criar um objeto a partir de estrutura, definida em uma classe.
+
+![Ilustração de uma classe Estudante e 03 Objetos criados](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-0c95c1d29336e1a2c8924f914cbab3dd38077990%2Fimage%20(9)%20(1)%20(1)%20(1).png?alt=media>)
+
+Para ilustrar as etapas de desenvolvimento, orientada a objetos em Java, iremos reproduzir a imagem acima em forma de código, para explicar que primeiro criamos a estrutura correspondente, para assim podermos criá-los com as características e a possibilidade de realização de ações (comportamentos), como se fosse no "mundo real".
+
+    // Criando a classe Student
+    // Com todas as características e compartamentos aplicados
+
+    public class Student {
+      String name;
+      int age;
+      Color color;
+      Sex sex;
+
+      void eating(Lunch lunch){
+        //NOSSO CÓDIGO AQUI
+      }
+      void drinking(Juice juice){
+        //NOSSO CÓDIGO AQUI
+      }
+      void running(){
+        //NOSSO CÓDIGO AQUI
+      }
+    }
+
+    // Criando objetos a partir da classe Student
+
+    public class School {
+      public static void main(String[] args) throws Exception {
+        Student student1 = new Student();
+        student1.name= "John";
+        student1.age= 12;
+        student1.color= Color.FAIR;
+        student1.sex= Sex.MALE;
+
+        Student student2 = new Student();
+        student2.name= "Sophia";
+        student2.age= 10;
+        student2.color= Color.FAIR;
+        student2.sex= Sex.FEMALE;
+
+        Student student3 = new Student();
+        student3.name= "Lily";
+        student3.age= 11;
+        student3.color= Color.DARK;
+        student3.sex= Sex.FEMALE;
+      }
+    }
+
+> No exemplo acima, **NÃO** estruturamos a classe Student,com o padrão Java Beans **getters** e **setters**.
+
+Seguindo algumas convenções, as nossas classes são classificadas como:
+
+- **Classe de modelo (model)**: classes que representam estrutura de domínio da aplicação, exemplo: Cliente, Pedido, Nota Fiscal e etc.
+- **Classe de serviço (service)**: classes que contém regras de negócio e validação de nosso sistema.
+- **Classe de repositório (repository)**: classes que contém uma integração com banco de dados.
+  **Classe de controle (controller)**: classes que possuem a finalidade de disponibilizar alguma comunicação externa, à nossa aplicação, como http web ou webservices.
+  **Classe utilitária (util)**: classe que contém recursos comuns, à toda nossa aplicação.
+
+![Modelo aplicado em grande parte dos projetos atuais](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-2ce73deabfce2bcbe385e6fb4c19e9a510941778%2Fimage%20(7)%20(1)%20(1).png?alt=media>)
+
+### Pacotes
+
+A linguagem Java, é composta por milhares de classes, com as finalidades de por exemplo: Classes de tipos de dados, representação de texto, números, datas, arquivos e diretórios, conexão com banco de dados, entre outras. Imagina todas estas classes, existindo em um único nível de documentos? E as classes desenvolvidas por nós, meros desenvolvedores, de aplicações de vários os gêneros? Imagina como ficaria este diretório hein!?
+
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-7e3cc96b40c9628e0ca010fa03a3b1c0f84d47cf%2Fimage%20(9)%20(1)%20(1).png?alt=media>)
+
+Para prevenir este acontecimento, a linguagem dispõe de um recurso, que organiza as classes padrões criadas por nós, que conhecemos como pacote (package). Os pacotes são subdiretórios, a partir da pasta src do nosso projeto, onde estão localizadas, as classes da linguagem e novas que forem criadas para o projeto. Existem algumas convenções para criação de pacotes já utilizadas no mercado.
+
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-85650fe21efc214012ba8e0ef7d5374464f2fe59%2Fimage%20(18)%20(1).png?alt=media>)
+
+#### Nomenclatura
+
+Vamos imaginar, que sua empresa se chama _Power Soft_ e ela está desenvolvendo software comercial, governamental e um software livre ou de código aberto. Abaixo teríamos os pacotes sugeridos conforme tabela abaixo:
+
+- **Comercial** : com.powersoft;
+- **Governamental** : gov.powersoft;
+- **Código aberto**: org.powersoft.
+
+Bem, acima já podemos perceber que existe uma definição, para o uso do nome dos pacotes, porém, podemos organizar ainda mais um pouco as nossas classes, mediante a proposta de sua existência:
+
+- **model** : Classes que representam a camada e modelo da aplicação : Cliente, Pedido, NotaFiscal, Usuario;
+- **repository**: Classes ou interfaces que possuem a finalidade de interagir com tabelas no banco de dados: ClienteRepository;
+- **service**: Classes que contém regras de negócio do sistema : ClienteService possui o método validar o CPF, do cliente cadastrado;
+- **controller**: Classes que possuem a finalidade de, disponibilizar os nossos recursos da aplicação, para outras aplicações via padrão HTTP;
+- **view**: Classes que possuem alguma interação, com a interface gráfica acessada pelo usuário;
+- **util**: Pacote que contém, classes utilitárias do sistema: FormatadorNumeroUtil, ValidadorUtil.
+
+#### Identificação
+
+Uma das características de uma classe é a sua identificação: Cliente, NotaFiscal, TituloPagar. Porém quando esta classe é organizada por pacotes, ela passa a ter duas identificações. O nome simples (**próprio nome**) e agora o nome qualificado (**endereçamento do pacote + nome**), exemplo: Considere a classe `Usuario`, que está endereçada no pacote `com.controle.acesso.model`, o nome qualificado desta classe é com.`controle.acesso.model.Usuario`.
+
+#### Package versus Import
+
+A localização de uma classe é definida pela palavra reservada package, logo, uma classe só contém, uma definição de package no arquivo, sempre na primeira linha do código. Para a utilização de uma classe existente em outros pacotes, necessitamos realizar a importação das mesmas, seguindo a recomendação abaixo:
+
+    package
+
+    import ...
+    import ...
+
+    public class MinhaClasse {
+    }
+
+#### Por que é tão importante compreender de pacotes?
+
+A linguagem Java, é composta por milhares de classes internas, classes desenvolvidas em projetos disponíveis através de bibliotecas e as classes do nosso projeto. Logo, existe uma enorme possibilidade da existência de classes de mesmo nome.
+
+É nesta hora, que nós desenvolvedores precisamos detectar, qual classe iremos importar em nosso projeto.
+
+Um exemplo clássico é, a existência das classes `java.sql.Date` e `java.util.Date` da própria linguagem, recomendo você leitor, pesquisar sobre a diferença das duas classes.
+
+### Visibilidade dos recursos
+
+#### Modificadores
+
+Em Java, utilizamos três palavras reservadas e um conceito default (sem nehuma palavra reservada) para definir os quatro tipo de visibilidade de atributos, métodos e até mesmo classes, no que se refere ao acesso por outras classes. Iremos ilustrar do mais visível, ao mais restrito tipo de visibilidade nos arquivos em nosso projeto.
+
+Para uma melhor ilustração, iremos representar os conceitos de visibilidade de recursos, através do contexto em uma lanchonete, que vende lanche natural e suco.
+
+##### Modificador public
+
+Como o próprio nome representa, quando nossa classe, método e atributo é definido como public, qualquer outra classe em qualquer outro pacote, poderá visualizar tais recursos.
+
+![](https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-11e169f025fbf09ce369a6166a354d12c7a2f794%2Flanchonete_1.png?alt=media)
+
+##### Modificador public
+
+**Cozinheiro**
+
+    package lanchonete;
+
+    public class Cozinheiro {
+      //pode ser default
+      public void adicionarLancheNoBalcao() {
+        System.out.println("ADICIONANDO LANCHE NATURAL HAMBÚRGUER NO BALCÃO");
+      }
+      //pode ser default
+      public void adicionarSucoNoBalcao() {
+        System.out.println("ADICIONANDO SUCO NO BALCÃO");
+      }
+      //pode ser default
+      public void adicionarComboNoBalcao() {
+        adicionarLancheNoBalcao();
+        adicionarSucoNoBalcao();
+      }
+      public void prepararLanche() {
+        System.out.println("PREPARANDO LANCHE TIPO HAMBÚRGUER");
+      }
+      public void prepararVitamina() {
+        System.out.println("PREPARANDO SUCO");
+      }
+      public void prepararCombo() {
+        prepararLanche();
+        prepararVitamina();
+      }
+      public void selecionarIngredientesLanche() {
+        System.out.println("SELECIONADO O PÃO, SALADA, OVO E CARNE");
+      }
+      public void selecionarIngredientesVitamina() {
+        System.out.println("SELECIONADO FRUTA, LEITE E SUCO");
+      }
+      public void lavarIngredientes() {
+        System.out.println("LAVANDO INGREDIENTES");
+      }
+      public void baterVitaminaLiquidificador() {
+        System.out.println("BATENDO VITAMINA NO LIQUIDIFICADOR");
+      }
+      public void fritarIngredientesLanche() {
+        System.out.println("FRITANDO A CARNE E OVO PARA O HAMBÚRGUER");
+      }
+      public void pedirParaTrocarGas(Atendente meuAmigo) {
+        meuAmigo.trocarGas();
+      }
+      public void pedirParaTrocarGas(Almoxarife meuAmigo) {
+        meuAmigo.trocarGas();
+      }
+      public void pedirIngredientes(Almoxarife almoxarife) {
+        almoxarife.entregarIngredientes();
+      }
+    }
+
+**Almoxarife**
+
+    package lanchonete;
+
+    public class Almoxarife {
+      public void controlarEntrada() {
+        System.out.println("CONTROLANDO A ENTRADA DOS ITENS");
+      }
+      public void controlarSaida() {
+        System.out.println("CONTROLANDO A SAIDA DOS ITENS");
+      }
+      public void entregarIngredientes() {
+        System.out.println("ENTREGANDO INGREDIENTES");
+        //...?
+      }
+      public void trocarGas() {
+        System.out.println("ALMOXARIFE TROCANDO O GÁS");
+      }
+    }
+
+**Atendente**
+
+    package lanchonete;
+
+    public class Atendente {
+      public void servindoMesa() {
+        //...?
+        System.out.println("SERVINDO A MESA");
+      }
+      public void pegarLancheCozinha() {
+        System.out.println("PEGANDO O LANCHE NA COZINHA");
+      }
+      public void receberPagamento() {
+        System.out.println("RECEBENDO PAGAMENTO");
+      }
+      public void trocarGas() {
+        System.out.println("ATENDENTE TROCANDO O GÁS");
+      }
+      public void pegarPedidoBalcao() {
+        System.out.println("PEGANDO O PEDIDO NO BALCÃO");
+      }
+    }
+
+**Cliente**
+
+    package lanchonete;
+
+    public class Cliente {
+      public void escolherLanche() {
+        System.out.println("ESCOLHENDO O LANCHE");
+      }
+      public void fazerPedido() {
+        System.out.println("FAZENDO O PEDIDO");
+      }
+      public void pagarConta() {
+        System.out.println("PAGANDO A CONTA");
+      }
+      public void consultarSaldoAplicativo() {
+        System.out.println("CONSULTANDO SALDO NO APLICATIVO");
+      }
+      public void pegarPedidoBalcao() {
+        System.out.println("PEGANDO O PEDIDO NO BALCÃO");
+      }
+    }
+
+**Estabelecimento**
+
+    package lanchonete;
+
+    public class Estabelecimento {
+      public static void main(String[] args) {
+        Cozinheiro cozinheiro = new Cozinheiro();
+        //ações que não precisam estarem disponíveis para toda a aplicação
+        cozinheiro.lavarIngredientes();
+        cozinheiro.baterVitaminaLiquidificador();
+        cozinheiro.selecionarIngredientesVitamina();
+        cozinheiro.prepararLanche();
+        cozinheiro.prepararVitamina();
+        cozinheiro.prepararVitamina();
+
+        //ações que estabelecimento precisa ter ciência
+        cozinheiro.adicionarSucoNoBalcao();;
+        cozinheiro.adicionarLancheNoBalcao();
+        cozinheiro.adicionarComboNoBalcao();
+
+        Almoxarife almoxarife = new Almoxarife();
+        //ações que não precisam estarem disponíveis para toda a aplicação
+        almoxarife.controlarEntrada();
+        almoxarife.controlarSaida();
+        //ação que somente o seu pacote cozinha precisa conhecer (default)
+        almoxarife.entregarIngredientes();
+        almoxarife.trocarGas();
+
+        Atendente atendente = new Atendente();
+        atendente.pegarLancheCozinha();
+        atendente.receberPagamento();
+        atendente.servindoMesa();
+        //ação que somente o seu pacote cozinha precisa conhecer (default)
+        atendente.trocarGas();
+
+        Cliente cliente = new Cliente();
+        cliente.escolherLanche();
+        cliente.fazerPedido();
+        cliente.pagarConta();
+
+        //não deveria, mas o estabelecimento
+        //ainda não definiu normas de atendimento
+        cliente.pegarPedidoBalcao();
+
+        //esta ação é muito sigilosa, qua tal ser privada ?
+        cliente.consultarSaldoAplicativo();
+
+        //já pensou os clientes ouvindo que o gás acabou ?
+        cozinheiro.pedirParaTrocarGas(atendente);
+        cozinheiro.pedirParaTrocarGas(almoxarife);
+
+      }
+    }
+
+##### Modificador default
+
+O modificador `default`, está fortemente associado a organização das classes por pacotes, algumas implementações, não precisam estar disponíveis por todo o projeto, e este modificador de acesso, restringe a visibilidade por pacotes.
+
+Dentro do pacote `lanchonete`, iremos criar dois sub-pacotes para representar a divisão do estabelecimento.
+
+- **lanchonete.atendimento.cozinha**: Pacote que contém classes, da parte da cozinha da lanchonete e atendimentos.
+- **lanchonete.area.cliente**: Pacote que contém classes, relacionadas ao espaço do cliente.
+
+![](https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-1fdf089ebb01ef7239344fbeae3dbf9ca71c1db0%2Fpacotes.png?alt=media)
+
+Para definir um método visível a nível de pacote, basta NÃO declarar nenhum modificador, exemplo:
+
+    // Cozinheiro.java
+
+    //público
+    public void lavarIngredientes() {
+      System.out.println("LAVANDO INGREDIENTES");
+    }
+
+    //nível de pacote
+    //sem nenhuma palavra reservada de acesso
+    void lavarIngredientes() {
+      System.out.println("LAVANDO INGREDIENTES");
+    }
+
+##### Modificador private
+
+Depois de reestruturar nosso estabelecimento (projeto), onde temos as divisões (pacotes), espaço do cliente e atendimento, chegou a hora de uma reflexão sobre visibilidade ou modificadores de acesso.
+
+Conhecemos as ações disponíveis nas classes `Cozinheiro, Almoxarife, Atendente e Cliente`, mesmo com a organização da visibilidade por pacote, será que realmente estas classes precisam ser tão explícitas?
+
+- Será que o `Cozinheiro` precisa saber que\como o `Almoxarife` controla as entradas e saídas ?
+- Que o `Cliente` precisa saber como o `Atendente` recebe o pedido, para servir sua mesa ?
+- Que o `Atendente` precisa saber que antes de pagar, o `Cliente` consulta o saldo no App ?
+
+Diante destes questionamentos, é que nossas classes precisam continuar mantendo suas ações (métodos), mas nem todas precisam ser vistas por ninguém.

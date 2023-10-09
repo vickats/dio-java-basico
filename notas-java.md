@@ -2115,3 +2115,689 @@ Conhecemos as ações disponíveis nas classes `Cozinheiro, Almoxarife, Atendent
 - Que o `Atendente` precisa saber que antes de pagar, o `Cliente` consulta o saldo no App ?
 
 Diante destes questionamentos, é que nossas classes precisam continuar mantendo suas ações (métodos), mas nem todas precisam ser vistas por ninguém.
+
+### Getters e Setters
+
+Seguindo a convenção Java Beans:
+
+Os métodos "Getters" e "Setters" são utilizados para buscar valores de atributos ou definir novos valores de atributos, de instâncias de classes.
+
+O método **Getter**, retorna o valor do atributo especificado.
+
+O método **Setter**, define outro novo valor para o atributo especificado.
+
+Vemos o código abaixo, da criação de um objeto Aluno com nome e idade:
+
+    // arquivo Aluno.java
+    public class Aluno {
+      String nome;
+      int idade;
+    }
+
+    // arquivo Escola.java
+    public class Escola {
+      public static void main(String[] args) {
+        Aluno felipe = new Aluno();
+        felipe.nome="Felipe";
+        felipe.idade = 8;
+
+        System.out.println("O aluno " + felipe.nome + " tem " + felipe.idade + " anos ");
+        //RESULTADO NO CONSOLE
+        //O aluno Felipe tem 8 anos
+      }
+    }
+
+Seguindo a convenção Java Beans, uma classe que contém esta estrutura de estados deverá seguir as regras abaixo:
+
+- Os atributos precisam ter o modificador de acesso private. Ex.: _private_ String nome;
+- Como agora os atributos estarão somente a nível de classe, precisaremos dos métodos **get**X e **set**X, Ex.: getNome() e setNome(String novoNome);
+- O método **get**, é responsável por obter o valor atual do atributo, logo ele precisa ser public, retornar um tipo correspondente ao valor, Ex.: _public String getNome() {}_;
+- O método **set**, é responsável por definir ou modificar o valor de um atributo em um objeto, logo, ele também precisa ser public, receber um parâmetro do mesmo tipo da variável, mas não retorna nenhum valor void. Ex.: _public void setNome(String newNome)_;
+
+        //arquivo Aluno.java
+        public class Aluno {
+          private String nome;
+          private int idade;
+
+          public String getNome() {
+            return nome;
+          }
+          public void setNome(String newNome) {
+            nome = newNome;
+          }
+          public int getIdade() {
+            return idade;
+          }
+          public void setIdade(int newIdade) {
+            this.idade = newIdade;
+          }
+        }
+
+        //arquivo Escola.java
+        public class Escola {
+          public static void main(String[] args) {
+            Aluno felipe = new Aluno();
+            felipe.setNome("Felipe");
+            felipe.setIdade(8);
+
+            System.out.println("O aluno " + felipe.getNome() + " tem " + felipe.getIdade() + " anos ");
+          }
+        }
+
+> A proposta do código acima é a mesma que o código anterior, a diferença é que adotamos a convenção Java Beans, para definir e obter as características dos nossos objetos.
+
+Uso do _this_ no método _set_.
+
+É muito comum vermos nossos métodos de definição ter a seguinte sintaxe:
+
+    //arquivo Aluno.java
+    private String nome;
+
+    public void setNome(String nome) {
+      this.nome = nome;
+    }
+
+> Observe que a descrição do nosso atributo nome é igual a descrição do parâmetro, logo, utilizamos mais uma palavra reservada this,para distinguir um do outro. Para mais detalhes veja [Palavras Reservadas](https://github.com/digytal-code/digytal-space-content/blob/main/programacao-orientada-a-objetos/broken-reference/README.md).
+
+### Construtores
+
+Sabemos que, para criar um objeto na linguagem Java, utilizamos a seguinte estrutura de código:
+
+    Classe novoObjeto = new Classe();
+
+Desta forma, será criado um novo objeto na memória, este recurso também é conhecido como instanciar um novo objeto.
+
+Muitas vezes, já queremos que na criação (instanciação) de um objeto, a linguagem já solicite para quem for criar este novo objeto, defina algumas propriedades essenciais. Abaixo, iremos ilustrar uma classe Pessoa, onde a mesma terá os atributos: Nome, CPF e Endereço.
+
+    public class Pessoa {
+      private String nome;
+      private String cpf;
+      private String endereco;
+
+      public String getNome() {
+        return nome;
+      }
+      public String getCpf() {
+        return cpf;
+      }
+      public String getEndereco() {
+        return endereco;
+      }
+      public void setEndereco(String endereco) {
+        this.endereco = endereco;
+      }
+      //...
+      //setters de nome e cpf ?
+    }
+
+Criaremos uma Pessoa, mas como não temos o setter para nome e cpf, este objeto não tem como receber estes valores:
+
+    public class SistemaCadastro {
+      public static void main(String[] args) {
+        //criamos uma pessoa no sistema
+        Pessoa marcos = new Pessoa();
+
+        //definimos o endereço de marcos
+        marcos.setEndereco("RUA DAS MARIAS");
+
+        //e como definir o nome e cpf do marcos ?
+
+        //imprimindo o marcos sem o nome e cpf
+
+        System.out.println(marcos.getNome() + "-" + marcos.getCpf());
+      }
+    }
+
+Entrando em cena o construtor, para criar nossos objetos, já com valores requeridos na momento da criação\instanciação (_new_):
+
+    public class Pessoa {
+      private String nome;
+      private String cpf;
+      private String endereco;
+
+      // método construtor
+      // o nome deverá ser igual ao nome da classe
+      public Pessoa (String cpf, String nome) {
+        this.cpf = cpf;
+        this.nome = nome;
+      }
+
+      //...
+      //getters
+      //setters
+    }
+
+Alterando o nosso sistema, para agora criar o objeto com informações já requeridas, conforme definição da ordem dos parâmetros do construtor:
+
+    public class SistemaCadastro {
+      public static void main(String[] args) {
+        //criamos uma pessoa no sistema
+        Pessoa marcos = new Pessoa("06724506716","MARCOS SILVA");
+
+        //continua ...
+
+      }
+    }
+
+### Enums
+
+Enum, é um tipo especial de classe, onde os objetos são previamente criados, imutáveis e disponíveis por toda aplicação.
+
+Usamos Enum, quando o nosso modelo de negócio contém objetos de mesmo contexto, que já existem de forma pré-estabelecida com a certeza de não haver tanta alteração de valores.
+
+**Exemplos:**
+
+**Grau de Escolaridade:** Analfabeto, Fundamental, Médio, Superior;
+
+**Estado Civil:** Solteiro, Casado, Divorciado, Viúvo;
+
+**Estados Brasileiros:** São Paulo, Rio de Janeiro, Piauí, Maranhão.
+
+> Não confunda uma lista de constantes com enum.
+
+Enquanto que uma constante é uma variável de tipo com valor imutável, enum é um conjunto de objetos já pre-definidos na aplicação.
+
+Como um enum é um conjunto de objetos, logo, estes objetos podem conter atributos e métodos. Veja o exemplo de um enum, para disponibilizar os quatro estados brasileiros citados acima, contendo informações de: Nome, Sigla e um método que pega o nome do de cada estado e já retorna para todo maiúsculo.
+
+    // Criando o enum EstadoBrasileiro para ser usado em toda a aplicação.
+    public enum EstadoBrasileiro {
+      SAO_PAULO ("SP","São Paulo"),
+      RIO_JANEIRO ("RJ", "Rio de Janeiro"),
+      PIAUI ("PI", "Piauí"),
+      MARANHAO ("MA","Maranhão") ;
+
+      private String nome;
+      private String sigla;
+
+      private EstadoBrasileiro(String sigla, String nome) {
+        this.sigla = sigla;
+        this.nome = nome;
+      }
+      public String getSigla() {
+        return sigla;
+      }
+      public String getNome() {
+        return nome;
+      }
+      public String getNomeMaiusculo() {
+        return nome.toUpperCase();
+      }
+
+    }
+
+#### Boas práticas para criar objetos Enum
+
+- As opções (objetos), devem ser descritos em caixa alta separados por underline (\_), ex.: OPCAO_UM, OPCAO_DOIS;
+- Após as opções, deve-se encerrar com ponto e vírgula ";" ;
+- Um enum é como uma classe, logo, poderá ter atributos e métodos tranquilamente;
+- Os valores dos atributos, devem já ser definidos após cada opção, dentro de parênteses como se fosse um _new_;
+- O construtor deve ser privado;
+- Não é comum um enum possuir o recurso _setter_(alteração de propriedade), somente os métodos _getters_ correspondentes.
+
+Agora **NÃO** precisaremos, criar objetos que representam cada estado, toda vez que precisarmos destas informações, basta usar o **enum** acima e escolher a opção (objeto), já pré-definido em qualquer parte do nosso sistema.
+
+    // qualquer classe do sistema poderá obter os objetos de EstadoBrasileiro
+    public class SistemaIbge {
+      public static void main(String[] args) {
+        //imprimindo os estados existentes no enum
+        for(EstadoBrasileiro uf: EstadoBrasileiro.values() ) {
+          System.out.println(uf.getSigla() + "-" + uf.getNomeMaiusculo());
+        }
+
+        //selecionando um estado a partir das opções disponíveis
+        EstadoBrasileiro ufSelecionado = EstadoBrasileiro.PIAUI;
+
+        System.out.println("O estado selecionado foi: " + ufSelecionado.getNome());
+      }
+    }
+
+### UML
+
+Linguagem de Modelagem Unificada ou UML, é uma notação, que possibilita a representação gráfica do projeto
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-5eb6e70c393e53ddafe8c4bb38fb8360daa53aab%2Fimage%20(17)%20(1).png?alt=media>)
+
+Na UML, temos três conceitos necessários para compreendermos inicialmente:
+
+**Diagramas, elementos e relacionamentos.**
+
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-7df9488f40343c429c8714631d9dbc19668f4043%2Fimage%20(7)%20(1)%20(2).png?alt=media>)
+
+As notações UML, são distribuídas em duas categorias de diagramas, a estrutural e comportamental conforme listagem abaixo:
+
+#### Diagramas estruturais
+
+- **Diagrama de classe**: O Diagrama de Classes é utilizado para fazer a representação de, estruturas de classes de negócio, interfaces e outros componentes do sistema. Por esta característica, este diagrama é considerado o mais importante para a UML, pois auxilia a maioria dos demais diagramas.
+
+- **Diagrama de objetos**: Este diagrama, representa os objetos existentes em um determinado instante ou fato na aplicação. Assim, conseguimos ter uma perspectiva do estado de nossos objetos, mediante a interação dos usuários no sistema.
+
+> Existem outras categorias de diagramas estruturais e comportamentais, porém iremos focar nos citados acima.
+
+#### Diagrama de classe
+
+O diagrama de classes, ilustra **graficamente ** como classes serão estruturadas e interligadas entre si, diante da proposta do nosso software.
+
+Em diagrama, a estrutura das classes é constituída por:
+
+**Identificação**: Nome e/ou finalidade da classe;
+
+**Atributos**: Propriedades e/ou características;
+
+**Operações**: Ações e/ou métodos.
+
+#### Relacionamentos
+
+Em um diagrama, as classes podem existir de forma independente, mas obviamente haverá, em alguma etapa da aplicação a necessidade de algumas se relacionarem, o que devemos compreender é, o nível de dependência entre elas:
+
+##### Associação
+
+Uma associação, define um relacionamento entre duas classes, permitindo que, um objeto tenha acesso a estrutura de um outro objeto.
+
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-5681df722d3bbe15cca7d948c3ec9f0842e5a2a6%2Fimage%20(7)%20(1).png?alt=media>)
+
+- **Agregação**: Em uma agregação, a classe principal contém uma relação com outra classe, mas ela pode existir, sem a classe agregadora. Imagina um cadastro de Candidatos, podemos encontrar candidatos que ainda não possuam uma profissão:
+
+![Candidato é classe principal e a Profissão, agregação.](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-f87b64ba00e44eac19debada84b5ef08c56b7e7e%2Fimage%20(10)%20(1).png?alt=media>)
+
+- **Composição**: A composição já caracteriza uma dependência existencial, entre a classe principal e a classe associada. Imaginamos que uma admissão só poderá existir, contendo suas informações básicas e a composição do candidato selecionado.
+
+![Admissão é a classe principal e Candidato compõe a Admissão, logo este SURGIRA uma composição entre Admissão e Colaborador - ver DDD](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-f249b98688e95959b0c0b3e616654a6ce7d02105%2Fimage%20(1)%20(1).png?alt=media>)
+
+##### Multiplicidade
+
+Nem sempre o relacionamento entre as classes, será de **um para um**, em um determinado cenário poderá exigir multiplicidades específicas, conforme opções abaixo:
+
+- 1. -> Representa uma associação, **contendo um elemento**;
+- \*. -> Representa uma associação, **contendo uma lista de elementos**;
+- 0..1 -> Representa uma associação, **contendo zero ou um elemento**;
+- 0..\* -> Representa uma associação, **contendo zero ou uma lista de elementos**;
+- 1..\* -> Representa uma associação, **contendo um ou uma lista de elementos**.
+
+##### Visibilidade
+
+Os atributos e métodos de uma classe, podem receber níveis de visibilidade, e na UML existem símbolos que representam cada um deles.
+
+- (+) Visibilidade pública;
+- (#) Visibilidade protegida (muito associada com herança);
+- (-) Visibilidade privada.
+
+##### Representação
+
+![Ilustração utilizando a ferramenta Astah Community.](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-b38fcec2347903449b3e5c98b2986f6f3cb96f4f%2Fimage%20(6).png?alt=media>)
+
+##### Que tal praticar ?
+
+![lustração utilizando a ferramenta Astah Community.](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-b38fcec2347903449b3e5c98b2986f6f3cb96f4f%2Fimage%20(6).png?alt=media>)
+
+#### Ferramentas
+
+Existem inúmeras ferramentas de diagramação, tanto online, como pagas e gratuitas.
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-002403fbd6300dcfc3804ab04160d2e8f8d1cbec%2Fimage%20(17).png?alt=media>)
+
+### Pilares do POO
+
+**Programação orientada a objetos** (**POO**, ou **OOP** segundo as suas siglas em inglês), é um paradigma de programação baseado no conceito de "objetos", que podem conter dados na forma de campos, também conhecidos como atributos e códigos, na forma de procedimentos, também conhecidos como métodos.
+
+Como se trata de, um contexto análogo ao mundo real, tudo no qual nos referimos são objetos, exemplo: Conta bancária, Aluno, Veículo, Transferência etc.
+
+A programação orientada a objetos, é bem requisitada no contexto das aplicações mais atuais no mercado, devido a possibilidade de reutilização de código e a capacidade de representação do sistema, ser muito mais próximo do mundo real.
+
+Para uma linguagem ser considerada orientada a objetos, esta deve seguir o que denominamos como **Os quatro pilares da orientação a objetos**:
+
+- **Encapsulamento**: Nem tudo precisa estar visível, grande parte do nosso algoritmo pode ser distribuído em métodos, com finalidades específicas que complementam uma ação em nossa aplicação.
+  Exemplo: Ligar um veículo, exige muitas etapas para a engenharia, mas o condutor só visualiza a ignição, dar a partida e a “magia” acontece.
+- **Herança**: Características e comportamentos comuns, podem ser elevados e compartilhados através de uma hierarquia de objetos.
+  Exemplo: Um Carro e uma Motocicleta possuem propriedades como placa, chassi, ano de fabricação e métodos como acelerar e frear. Logo, para não ser um processo de codificação redundante, podemos desfrutar da herança criando uma classe **Veículo** para que seja herdada por **Carro** e **Motocicleta**.
+- **Abstração**: É a indisponibilidade, para determinar a lógica de um ou vários comportamentos, em um objeto.
+  Exemplo: **Veículo\*\*** \*\* determina duas ações como acelerar e frear, logo, estes comportamentos deverão ser abstratos, pois existem mais de uma maneira de se realizar a mesma operação. ver Polimorfismo.
+- **Polimorfismo**: São as inúmeras maneiras de se realizar uma mesma ação.
+  Exemplo: Veículo determina duas ações como acelerar e frear, primeiramente, precisamos identificar se estaremos nos referindo a **Carro\*\*** ** ou **Motocicleta\*\*, para determinar a lógica de aceleração e frenagem dos respectivos veículos.
+
+##### Em prática
+
+Para ilustrar a proposta dos Princípios de POO, no nosso cotidiano, vamos simular algumas funcionalidades dos aplicativos de mensagens instantâneas pela internet.
+
+**MSN Messenger** foi um programa de mensagens instantâneas criado pela Microsoft Corporation. O serviço nasceu a 22 de julho de 1999, anunciando-se como um serviço que, permitia falar com uma pessoa através de conversas instantâneas pela internet. Ao longo dos anos, surgiram novos serviços de mensagens pela internet, como **Facebook Messenger** e o **VKontakte Telegram**.
+
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-508b916c86e4fe676b8a4dafcb843e8bb0db44f8%2Fimage%20(8)%20(1)%20(1).png?alt=media>)
+
+Vamos descrever em UML e depois em código, algumas das principais funcionalidades de qualquer serviço de comunicação instantânea pela internet, inicialmente pelo MSN Messenger e depois inserindo os demais, considerando os princípios de POO.
+
+**UML**
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-32e4d75933544ea1ebd7027be1038c7891b95e36%2Fimage%20(14).png?alt=media>)
+
+Pontos de atenção:
+
+- Todos os métodos da classe são **public** (tudo realmente precisa estar visível ?);
+- Só existe uma única forma de se comunicar via internet (como ter novas formas de se comunicar mantendo a proposta central ?).
+
+        public class MSNMessenger {
+          public void enviarMensagem() {
+            System.out.println("Enviando mensagem");
+          }
+          public void receberMensagem() {
+            System.out.println("Recebendo mensagem");
+          }
+          public void validarConectadoInternet() {
+            System.out.println("Validando se está conectado a internet");
+          }
+          public void salvarHistoricoMensagem() {
+            System.out.println("Salvando o histórico da mensagem");
+          }
+        }
+
+#### Encapsulamento
+
+Nem tudo precisa ser estar disponível para todos!
+
+Já imaginou, você instalar o MSN Messenger e ao querer enviar uma mensagem, fosse solicitado a você, verificar se o computador está conectado a internet e depois, pedir para você salvar a mensagem no histórico? ou, se ao tentar enviar um SMS pelo celular, primeiro você precisasse consultar manualmente o seu saldo ?
+
+Acredito que não seria uma experiência tão agradável de ser executada, recorrentemente, por nós usuários.
+
+Mesmo ainda sendo necessária algumas etapas, nos processos citados, não é um requisito uma visibilidade pública, isso quer dizer, além da própria classe que possui a responsabilidade de uma determinada ação.
+
+Quanto ao MSN Messenger, para nós, só é relevante saber que podemos e como devemos enviar e receber a mensagem, logo, as demais funcionalidades poderão ser consideradas privadas (private). E é ai que se caracteriza a necessidade do pilar de Encapsulamento. O que esconder ?
+
+Vejamos a refatoração abaixo, da nossa classe MSN Messenger:
+
+**UML**
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-bf51fc5a4c202546ec3574493a5dcda45abb744f%2Fimage%20(8)%20(1).png?alt=media>)
+
+**Antes**
+
+    /*
+    * Simulação do uso da classe MSNMessenger
+    */
+    public class ComputadorPedrinho {
+      public static void main(String[] args) {
+        //abrindo MSN Messenger
+        MSNMessenger msn = new MSNMessenger();
+
+        msn.validarConectadoInternet();
+        msn.enviarMensagem();
+        msn.salvarHistoricoMensagem();
+
+        msn.receberMensagem();
+      }
+    }
+
+**MSNMessenger.java**
+
+    public class MSNMessenger {
+      public void enviarMensagem() {
+        //primeiro confirmar se esta conectado a internet
+        validarConectadoInternet();
+
+        System.out.println("Enviando mensagem");
+
+        //depois de enviada, salva o histórico da mensagem
+        salvarHistoricoMensagem();
+
+
+      }
+      public void receberMensagem() {
+        System.out.println("Recebendo mensagem");
+      }
+
+      //métodos privadas, visíveis somente na classe
+      private void validarConectadoInternet() {
+        System.out.println("Validando se está conectado a internet");
+      }
+      private void salvarHistoricoMensagem() {
+        System.out.println("Salvando o histórico da mensagem");
+      }
+    }
+
+**Depois**
+
+    /*
+    * Simulação do uso da classe MSNMessenger
+    */
+    public class ComputadorPedrinho {
+      public static void main(String[] args) {
+        //abrindo MSN Messenger
+        MSNMessenger msn = new MSNMessenger();
+
+        msn.enviarMensagem();
+
+        msn.receberMensagem();
+      }
+    }
+
+#### Herança
+
+Nem tudo se copia, às vezes se herda.
+
+Já imaginou, você ter sido classificado para a vaga de emprego de seus sonhos e como desafio, seria justamente você criar um diagrama de classes e em seguida os respectivos arquivos .java, que apresentasse os fundamentos de POO, com base no contexto de vários aplicativos de mensagens instantâneas? Sorte sua que você está nos acompanhando, em nossa jornada! 😜
+
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-8e93d7ce458fcb5049f945ad6fdfb049e4abb52d%2Fimage%20(8)%20(2).png?alt=media>)
+
+> Com base na nossa classe MsnMessenger, você já poderia dar os primeiros passos para se dar bem no processo seletivo, simplemente, copiar e colar a estrutura, para as novas classes FacebookMessenger, Telegram e BINGO 😁😁😁!!!
+
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-b73f132940fddf924da1ae4e74f0fc40071dbfb8%2Fimage%20(19).png?alt=media>)
+
+Agora é escrever o código das classes acima e esperar pela contratação !!!
+
+> Lamentamos dizer, mas esta não seria a melhor alternativa para a proposta citada acima.
+
+Além de uma compreensão do desafio, é necessário que, tenhamos domínio dos pilares de POO e aplicá-los em situações iguais a esta.
+
+**NOTE**: Todas as três classes, possuem a mesma estrutura comportamental e diante deste contexto, se encaixa perfeitamente o segundo pilar da POO, a Herança.
+
+![Representação UML do sistema de mensagens insntantâneas](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-fd6c7fe52a162033db9766e99c07ec7735df2ebe%2Fimage%20(11)%20(1)%20(1)%20(1).png?alt=media>)
+
+**SevicoPai**
+
+    //a classe MSNMessenger é ou representa
+    public class ServicoMensagemInstantanea {
+      public void enviarMensagem() {
+        //primeiro confirmar se esta conectado a internet
+        validarConectadoInternet();
+        System.out.println("Enviando mensagem");
+        //depois de enviada, salva o histórico da mensagem
+        salvarHistoricoMensagem();
+      }
+      public void receberMensagem() {
+        System.out.println("Recebendo mensagem");
+      }
+
+      //métodos privadas, visíveis somente na classe
+      private void validarConectadoInternet() {
+        System.out.println("Validando se está conectado a internet");
+      }
+      private void salvarHistoricoMensagem() {
+        System.out.println("Salvando o histórico da mensagem");
+      }
+    }
+
+**MSN**
+
+    public class MSNMessenger extends ServicoMensagemInstantanea{
+
+    }
+
+**Facebook**
+
+    public class FacebookMessenger extends ServicoMensagemInstantanea {
+
+    }
+
+**Telegram**
+
+    public class Telegram extends ServicoMensagemInstantanea {
+
+    }
+
+**ComputadorPedrinho**
+
+    public class ComputadorPedrinho {
+      public static void main(String[] args) {
+
+        MSNMessenger msn = new MSNMessenger();
+        msn.enviarMensagem();
+        msn.receberMensagem();
+
+        FacebookMessenger fbm = new FacebookMessenger();
+        fbm.enviarMensagem();
+        fbm.receberMensagem();
+
+        Telegram tlg = new Telegram();
+        tlg.enviarMensagem();
+        tlg.receberMensagem();
+
+      }
+    }
+
+Podemos avaliar a importância de compreender os pilares de POO, para ter uma melhor implementação, reaproveitamento e reutilização de código, em qualquer contexto das nossas aplicações, mas não para por ai.
+
+> Será que todos os sistemas de mensagens, realizam as suas operações de uma mesma maneira? e agora ? este é um trabalho para os pilares Abstração e Polimorfismo.
+
+#### Abstração
+
+Para você ser, é preciso você fazer.
+
+Sabemos que qualquer sistema de mensagens instantâneas realiza as mesmas operações de Enviar e Receber Mensagem, dentre outras operações comuns ou exclusivas de cada aplicativo disponível no mercado.
+
+Mas será que as ações realizadas, contém o mesmo comportamento ? Acreditamos que não.
+
+> Já imaginou a Microsoft falar para o Facebook: "Ei, toma meu código do MSN!".
+
+O que vale destacar para compreender, é que todo e qualquer sistema de mensagem precisa sim, no mínimo Enviar e Receber Mensagem, logo, consideramos se firmar um "contrato" para qualquer um que queira se apresentar assim para o mercado.
+
+Observem a nova estruturação dos códigos abaixo, com base na implementação apresentada no pilar Herança.
+
+**ServicoPai**
+
+    public abstract class ServicoMensagemInstantanea {
+      public abstract void enviarMensagem();
+      public abstract void receberMensagem();
+    }
+
+**MSN**
+
+    public class MSNMessenger extends ServicoMensagemInstantanea{
+      public void enviarMensagem() {
+        System.out.println("Enviando mensagem pelo MSN Messenger");
+      }
+      public void receberMensagem() {
+        System.out.println("Recebendo mensagem pelo MSN Messenger");
+      }
+    }
+
+**Facebook**
+
+    public class FacebookMessenger extends ServicoMensagemInstantanea {
+      public void enviarMensagem() {
+        System.out.println("Enviando mensagem pelo Facebook Messenger");
+      }
+      public void receberMensagem() {
+        System.out.println("Recebendo mensagem pelo Facebook Messenger");
+      }
+    }
+
+**Telegram**
+
+    public class Telegram extends ServicoMensagemInstantanea {
+      public void enviarMensagem() {
+        System.out.println("Enviando mensagem pelo Telegram");
+      }
+      public void receberMensagem() {
+        System.out.println("Recebendo mensagem pelo Telegram");
+      }
+    }
+
+> Em Java, o conceito de abstração é representado pela palavra reservada **abstract**e métodos que NÃO possuem corpo na classe abstrata (pai).
+> É muito difícil falar de abstraçãoe NÃO mencionar polimorfismo.
+
+#### Polimorfismo
+
+Um mesmo comportamento, de várias maneiras.
+
+Podemos observar no contexto de **Abstração e Herança**, que conseguimos criar uma singularidade estrutural de nossos elementos. Isso quer dizer que, qualquer classe que deseja representar um serviço de mensagens, basta estender a classe **ServicoMensagemInstantanea** e implementar, os respectivos métodos abstratos. O que vale reforçar aqui é, cada classe terá a mesma ação, executando procedimentos de maneira especializada.
+
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-346b134698ce593ffb76f72333bc79bfa04e6199%2Fimage%20(9).png?alt=media>)
+
+Este é o resultado do que denominamos como, Polimorfismo. Veja o exemplo abaixo:
+
+    public class ComputadorPedrinho {
+      public static void main(String[] args) {
+
+        ServicoMensagemInstantanea smi = null;
+
+        /*
+            NÃO SE SABE QUAL APP
+            MAS QUALQUER UM DEVERÁ ENVIAR E RECEBER MENSAGEM
+        */
+        String appEscolhido="???";
+
+        if(appEscolhido.equals("msn"))
+          smi = new MSNMessenger();
+        else if(appEscolhido.equals("fbm"))
+          smi = new FacebookMessenger();
+        else if(appEscolhido.equals("tlg"))
+          smi = new Telegram();
+
+
+        smi.enviarMensagem();
+        smi.receberMensagem();
+      }
+    }
+
+> Para concluirmos a compreensão, Polimorfismo permite que as classes mais abstratas, determinem ações uniformes, para que cada classe filha concreta, implemente os comportamentos de forma específica.
+
+##### Modificador protected
+
+Vamos para uma retrospectiva, quanto ao requisito do nosso sistema de mensagens instantâneas, desde a etapa de encapsulamento.
+O nosso requisito, solicita que além de Enviar e Receber Mensagens, precisamos validar se o aplicativo está conectado a internet (_validarConectadoInternet_) e salvar o histórico de cada mensagem (_salvarHistoricoMensagem_).
+Sabemos que cada aplicativo, costuma salvar as mensagens em seus respectivos servidores cloud, mas e quanto validar se está conectado a internet? Não poderia ser um mecanismo comum a todos ? Logo, qualquer classe filha, de **ServicoMensagemInstantanea** poderia desfrutar através de herança, esta funcionalidade.
+
+> Mas fica a reflexão do que já aprendemos sobre visibilidade de recursos: Com o modificador **private**somente a classe conhece a implementação, quanto que o modificador **public**todos passarão a conhecer. Mas gostaríamos que, somente as classes filhas soubessem. Bem, é ai que entra o modificador protected.
+
+    public abstract class ServicoMensagemInstantanea {
+
+      public abstract void enviarMensagem();
+      public abstract void receberMensagem();
+
+      //mais um método que todos os filhos deverão implementar
+      public abstract void salvarHistoricoMensagem();
+
+      //somente os filhos conhecem este método
+      protected void validarConectadoInternet() {
+        System.out.println("Validando se está conectado a internet");
+      }
+    }
+
+### Interface
+
+> Antes de tudo, NÃO estamos nos referindo a interface gráfica. Tudo bem? 😁😉
+
+Como vimos anteriormente, **Herança** é um dos pilares de POO, mas uma curiosidade que se deve ser esclarecida, na linguagem Java, é que a mesma não permite o que conhecemos como **Herança Múltipla**.
+
+A medida que vão surgindo novas necessidades, novos equipamentos (objetos), que nascem para atender as expectativas de oferecer ferramentas com finalidades bem específicas, como por exemplo: Impressoras, Digitalizadoras, Copiadoras e etc.
+
+Observem que não há uma especificação de marca, modelo e ou capacidades de execução das classes citadas acima, isto é o que consideramos o nível mais abstrato da orientação a objetos, que denominamos como **interfaces**.
+
+Ilustração de interfaces dos equipamentos citados acima:
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-c934a98203783dfa28d98f4f3003056d5721fab6%2Fimage%20(11)%20(1)%20(1).png?alt=media>)
+
+> Então, o que você está dizendo é que interfaces, é o mesmo que classes? Um molde para representação dos objetos reais ?
+
+Este é um dos maiores questionamentos dos desenvolvedores, no que se refere a modelo de classes da aplicação.
+Como citado acima, Java não permite herança múltipla, logo, vamos imaginar que, recebemos o desafio de projetar uma nova classe, para criar objetos que representam as três características citadas acima e que iremos denominar de **EquipamentoMultifunional**.
+
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-fc3c1c4ec6d603682b686a470565e0c6f3798972%2Fimage%20(11)%20(1).png?alt=media>)
+
+Para uma melhor compreensão, vamos analisar os diagramas de classes abaixo, comparando o conceito de herança entre, classes e interfaces.
+
+**Cenário 1**
+
+![Exemplo de aplicação de Herança entre classes](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-71934593133ff20a66e3fa0e3723c93b5d3bd8b7%2Fimage%20(3)%20(2).png?alt=media>)
+
+![Ilustração do uso de interfaces para aplicar Herança Múltipla](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-0175ff3d712a283ce6c6b317fc09046a94e1836b%2Fimage%20(20).png?alt=media>)
+
+Antes de iniciarmos a representação via código, devemos compreender que, assim como em classes e métodos abstratos, quando herdamos de uma interface, precisamos implementar todos os seus métodos, pois os mesmos são implicitamente _public abstract_.
+
+E para encerrar, uma das mais importantes ilustrações, quanto ao uso de interfaces para, desenvolvimento de componentes revolucionários, é apresentado em 2007 por nada mais nada menos que Steve Jobs ao lançar o primeiro **iPhone** da história.
+
+![](<https://3025166959-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjFR9F4NToQ6FD39fU3wC%2Fuploads%2Fgit-blob-8389eb9fec103802db8d0911de82447c0ba5dbdd%2Fimage%20(11).png?alt=media>)
+
+> Um único equipamento, que pode ser considerado tanto como um: **Reprodutor Musical, Aparelho Telefônico e Navegador na Internet**.

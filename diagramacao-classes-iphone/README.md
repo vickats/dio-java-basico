@@ -1,3 +1,3 @@
 Entregável - Diagramação Classes iPhone - DIO Santander Bootcamp 2023
 
-![UML](/assets/diagramacao-classes-iphone\UML.png)
+![UML](https://github.com/vickats/dio-java-basico/blob/main/diagramacao-classes-iphone/src/assets/UML.png)

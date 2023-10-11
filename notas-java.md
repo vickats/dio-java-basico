@@ -2829,13 +2829,13 @@ E para encerrar, uma das mais importantes ilustrações, quanto ao uso de interf
 
       public class Box {
       private Object object;
-      
+
           public void set(Object object) { this.object = object; }
           public Object get() { return object; }
       }
 
 - O símbolo _<>_ é chamado de "diamond" ou "diamond operator" foi um recurso introduzido no Java 7 e é usado no contexto de tipos genéricos em Java para inferir automaticamente o tipo com base no contexto.
-- Para atualizar a classe ``Box`` para usar main.java.generics, você cria uma declaração de tipo genérico alterando o código ``public class Box`` para ``public class Box<T>``.
+- Para atualizar a classe `Box` para usar main.java.generics, você cria uma declaração de tipo genérico alterando o código `public class Box` para `public class Box<T>`.
 - Isso introduz a variável de tipo, T, que pode ser usada em qualquer lugar dentro da classe:
 
       /**
@@ -2845,7 +2845,7 @@ E para encerrar, uma das mais importantes ilustrações, quanto ao uso de interf
       public class Box<T> {
       // T representa "Type" (tipo)
       private T t;
-      
+
           public void set(T t) { this.t = t; }
           public T get() { return t; }
       }
@@ -2857,6 +2857,7 @@ Uma variável de tipo pode ser qualquer tipo não primitivo que você especifica
 Essa mesma técnica pode ser aplicada para criar interfaces genérica.
 
 Os nomes de parâmetros de tipo mais comumente usados são:
+
 - E - Elemento (usado extensivamente pelo Java Collections Framework)
 - K - Chave
 - N - Número
@@ -2865,6 +2866,7 @@ Os nomes de parâmetros de tipo mais comumente usados são:
 - S, U, V, etc. - 2º, 3º, 4º tipos
 
 #### Vantagens simples de usar main.java.generics nas interfaces Collection em Java:
+
 1. Segurança do tipo de dados: O uso de main.java.generics garante que apenas objetos de um tipo específico possam ser adicionados à coleção, evitando erros de tipo e garantindo que você esteja lidando com os dados corretos.
 2. Código mais legível: Ao usar main.java.generics, você pode especificar o tipo de dados esperado ou retornado pela coleção, o que torna o código mais fácil de entender e ler.
 3. Detecta erros mais cedo: O compilador verifica se você está usando os tipos corretos durante a compilação, ajudando a identificar erros de tipo antes mesmo de executar o programa.
@@ -2874,61 +2876,64 @@ Os nomes de parâmetros de tipo mais comumente usados são:
 #### Comparable X Comparator
 
 **Comparable**
-- ``Comparable`` fornece uma única sequência de ordenação. Em outras palavras, podemos ordenar a coleção com base em um único elemento, como id, nome e preço.
-- ``Comparable`` afeta a classe original, ou seja, a classe atual é modificada.
-- ``Comparable`` fornece o método ``compareTo()`` para ordenar elementos.
-- ``Comparable`` está presente no pacote ``java.lang``.
-- Podemos ordenar os elementos da lista do tipo ``Comparable`` usando o método ``Collections.sort(List)``.
+
+- `Comparable` fornece uma única sequência de ordenação. Em outras palavras, podemos ordenar a coleção com base em um único elemento, como id, nome e preço.
+- `Comparable` afeta a classe original, ou seja, a classe atual é modificada.
+- `Comparable` fornece o método `compareTo()` para ordenar elementos.
+- `Comparable` está presente no pacote `java.lang`.
+- Podemos ordenar os elementos da lista do tipo `Comparable` usando o método `Collections.sort(List)`.
 
 **Comparator**
-- O ``Comparator`` fornece o método ``compare()`` para ordenar elementos.
-- O ``Comparator`` fornece múltiplas sequências de ordenação. Em outras palavras, podemos ordenar a coleção com base em múltiplos elementos, como id, nome, preço, etc.
-- O ``Comparator`` não afeta a classe original, ou seja, a classe atual não é modificada.
-- Um ``Comparator`` está presente no pacote ``java.util``.
-- Podemos ordenar os elementos da lista do tipo ``Comparator`` usando o método ``Collections.sort(List, Comparator)``.
+
+- O `Comparator` fornece o método `compare()` para ordenar elementos.
+- O `Comparator` fornece múltiplas sequências de ordenação. Em outras palavras, podemos ordenar a coleção com base em múltiplos elementos, como id, nome, preço, etc.
+- O `Comparator` não afeta a classe original, ou seja, a classe atual não é modificada.
+- Um `Comparator` está presente no pacote `java.util`.
+- Podemos ordenar os elementos da lista do tipo `Comparator` usando o método `Collections.sort(List, Comparator)`.
 
 **Collections**
-- A classe ``Collections`` é uma classe utilitária do Java para operações comuns em coleções.
+
+- A classe `Collections` é uma classe utilitária do Java para operações comuns em coleções.
 - Ela fornece métodos para ordenação, busca, manipulação e sincronização de coleções.
-  - O método ``sort()`` é usado para ordenar uma lista em ordem ascendente.
-- O método ``sort()`` em conjunto com ``Collections.reverseOrder()`` permite ordenar em ordem descendente.
+  - O método `sort()` é usado para ordenar uma lista em ordem ascendente.
+- O método `sort()` em conjunto com `Collections.reverseOrder()` permite ordenar em ordem descendente.
 
       package main.java.main.java.comparableXcomparator;
-      
+
       import java.util.Comparator;
-      
+
       // Uma classe 'Livro' que implementa Comparable
       class Livro implements Comparable<Livro> {
       private String titulo;
       private String autor;
       private int ano;
-      
+
           // Construtor
           public Livro(String ti, String au, int an) {
               this.titulo = ti;
               this.autor = au;
               this.ano = an;
           }
-      
+
           // Usado para ordenar livros por ano
           public int compareTo(Livro l) {
               return titulo.compareTo(l.titulo);
           }
-      
+
           // Métodos getters para acessar os dados privados
           public String getTitulo() {
               return titulo;
           }
-      
+
           public String getAutor() {
               return autor;
           }
-      
+
           public int getAno() {
               return ano;
           }
       }
-      
+
       // Classe para comparar Livro por autor
       class CompararAutor implements Comparator<Livro> {
         @Override
@@ -2936,7 +2941,7 @@ Os nomes de parâmetros de tipo mais comumente usados são:
           return l1.getAutor().compareTo(l2.getAutor());
         }
       }
-      
+
       // Classe para comparar Livro por ano
       class CompararAno implements Comparator<Livro> {
         @Override
@@ -2949,7 +2954,7 @@ Os nomes de parâmetros de tipo mais comumente usados são:
           return 0;
         }
       }
-      
+
       class CompararAnoAutorTitulo implements Comparator<Livro> {
         @Override
         public int compare(Livro l1, Livro l2) {
@@ -2963,14 +2968,15 @@ Os nomes de parâmetros de tipo mais comumente usados são:
         }
       }
 
-#### List Interface
+#### LIST interface
+
 ![](https://raw.githubusercontent.com/cami-la/collections-java-api-2023/master/assets/image/main.java.list-interface-hierarchy.png)
 
-- A interface ``List`` é uma coleção ordenada que permite a inclusão de elementos duplicados.
-- É um dos tipos de coleção mais utilizados em Java, e as classes de implementação comuns são ``ArrayList`` e ``LinkedList``.
-- A ``List`` se assemelha a uma matriz com comprimento dinâmico, permitindo adicionar ou remover elementos.
-- A interface ``List`` fornece métodos úteis para adicionar elementos em posições específicas, remover ou substituir elementos com base no índice e obter sublistas usando índices.
-- A classe ``Collections`` fornece algoritmos úteis para manipulação de ``List``, como ordenação (sort), embaralhamento (shuffle), reversão (reverse) e busca binária (binarySearch).
+- A interface `List` é uma coleção ordenada que permite a inclusão de elementos duplicados.
+- É um dos tipos de coleção mais utilizados em Java, e as classes de implementação comuns são `ArrayList` e `LinkedList`.
+- A `List` se assemelha a uma matriz com comprimento dinâmico, permitindo adicionar ou remover elementos.
+- A interface `List` fornece métodos úteis para adicionar elementos em posições específicas, remover ou substituir elementos com base no índice e obter sublistas usando índices.
+- A classe `Collections` fornece algoritmos úteis para manipulação de `List`, como ordenação (sort), embaralhamento (shuffle), reversão (reverse) e busca binária (binarySearch).
 
 > ArrayList: O ArrayList é uma implementação da interface List que armazena os elementos em uma estrutura de array redimensionável. Isso significa que ele pode crescer automaticamente à medida que novos elementos são adicionados. A principal vantagem do ArrayList é o acesso rápido aos elementos por meio de índices, o que permite recuperar um elemento específico de forma eficiente. No entanto, adicionar ou remover elementos no meio da lista pode ser mais lento, pois requer a realocação de elementos.
 
@@ -2979,6 +2985,7 @@ Os nomes de parâmetros de tipo mais comumente usados são:
 > Vector: O Vector é uma implementação antiga da interface List que é semelhante ao ArrayList, mas é sincronizada, ou seja, é thread-safe. Isso significa que várias threads podem manipular um objeto Vector ao mesmo tempo sem causar problemas de concorrência. No entanto, essa sincronização adiciona uma sobrecarga de desempenho, tornando o Vector menos eficiente do que o ArrayList em cenários em que a concorrência não é um problema. Por esse motivo, o uso do Vector é menos comum em aplicações modernas
 
 ### Fixando os Conhecimentos
+
 Exercícios:
 
 1. Operações Básicas com List
@@ -2990,53 +2997,56 @@ Exercícios:
 1. Lista de Tarefas
    Crie uma classe chamada "ListaTarefas" que possui uma lista de tarefas como atributo. Cada tarefa é representada por uma classe chamada "Tarefa" que possui um atributo de descrição. Implemente os seguintes métodos:
 
-- ``adicionarTarefa(String descricao)``: Adiciona uma nova tarefa à lista com a descrição fornecida.
-- ``removerTarefa(String descricao)``: Remove uma tarefa da lista com base em sua descrição.
-- ``obterNumeroTotalTarefas()``: Retorna o número total de tarefas na lista.
-- ``obterDescricoesTarefas()``: Retorna uma lista contendo a descrição de todas as tarefas na lista.
+- `adicionarTarefa(String descricao)`: Adiciona uma nova tarefa à lista com a descrição fornecida.
+- `removerTarefa(String descricao)`: Remove uma tarefa da lista com base em sua descrição.
+- `obterNumeroTotalTarefas()`: Retorna o número total de tarefas na lista.
+- `obterDescricoesTarefas()`: Retorna uma lista contendo a descrição de todas as tarefas na lista.
 
 2. Carrinho de Compras:
    Crie uma classe chamada "CarrinhoDeCompras" que representa um carrinho de compras online. O carrinho deve ser implementado como uma lista de itens. Cada item é representado por uma classe chamada "Item" que possui atributos como nome, preço e quantidade. Implemente os seguintes métodos:
 
-- ``adicionarItem(String nome, double preco, int quantidade)``: Adiciona um item ao carrinho com o nome, preço e quantidade especificados.
-- ``removerItem(String nome)``: Remove um item do carrinho com base no seu nome.
-- ``calcularValorTotal()``: Calcula e retorna o valor total do carrinho, levando em consideração o preço e a quantidade de cada item.
-- ``exibirItens()``: Exibe todos os itens presentes no carrinho, mostrando seus nomes, preços e quantidades.
+- `adicionarItem(String nome, double preco, int quantidade)`: Adiciona um item ao carrinho com o nome, preço e quantidade especificados.
+- `removerItem(String nome)`: Remove um item do carrinho com base no seu nome.
+- `calcularValorTotal()`: Calcula e retorna o valor total do carrinho, levando em consideração o preço e a quantidade de cada item.
+- `exibirItens()`: Exibe todos os itens presentes no carrinho, mostrando seus nomes, preços e quantidades.
 
 #### Pesquisa em List
+
 1. Catálogo de Livros
    Crie uma classe chamada "CatalogoLivros" que possui uma lista de objetos do tipo "Livro" como atributo. Cada livro possui atributos como título, autor e ano de publicação. Implemente os seguintes métodos:
 
-- ``adicionarLivro(String titulo, String autor, int anoPublicacao)``: Adiciona um livro ao catálogo.
-- ``pesquisarPorAutor(String autor)``: Pesquisa livros por autor e retorna uma lista com os livros encontrados.
-- ``pesquisarPorIntervaloAnos(int anoInicial, int anoFinal)``: Pesquisa livros publicados em um determinado intervalo de anos e retorna uma lista com os livros encontrados.
-- ``pesquisarPorTitulo(String titulo)``: Pesquisa livros por título e retorna o primeiro livro encontrado.
+- `adicionarLivro(String titulo, String autor, int anoPublicacao)`: Adiciona um livro ao catálogo.
+- `pesquisarPorAutor(String autor)`: Pesquisa livros por autor e retorna uma lista com os livros encontrados.
+- `pesquisarPorIntervaloAnos(int anoInicial, int anoFinal)`: Pesquisa livros publicados em um determinado intervalo de anos e retorna uma lista com os livros encontrados.
+- `pesquisarPorTitulo(String titulo)`: Pesquisa livros por título e retorna o primeiro livro encontrado.
 
 2. Soma de Números
    Crie uma classe chamada "SomaNumeros" que possui uma lista de números inteiros como atributo. Implemente os seguintes métodos:
 
-- ``adicionarNumero(int numero)``: Adiciona um número à lista de números.
-- ``calcularSoma()``: Calcula a soma de todos os números na lista e retorna o resultado.
-- ``encontrarMaiorNumero()``: Encontra o maior número na lista e retorna o valor.
-- ``encontrarMenorNumero()``: Encontra o menor número na lista e retorna o valor.
-- ``exibirNumeros()``: Retorna uma lista contendo todos os números presentes na lista.
+- `adicionarNumero(int numero)`: Adiciona um número à lista de números.
+- `calcularSoma()`: Calcula a soma de todos os números na lista e retorna o resultado.
+- `encontrarMaiorNumero()`: Encontra o maior número na lista e retorna o valor.
+- `encontrarMenorNumero()`: Encontra o menor número na lista e retorna o valor.
+- `exibirNumeros()`: Retorna uma lista contendo todos os números presentes na lista.
 
 #### Ordenação em List
+
 1. Ordenação de Pessoas
    Crie uma classe chamada "OrdenacaoPessoas" que possui uma lista de objetos do tipo "Pessoa" como atributo. Cada pessoa possui atributos como nome, idade e altura. Implemente os seguintes métodos:
 
-- ``adicionarPessoa(String nome, int idade, double altura)``: Adiciona uma pessoa à lista.
-- ``ordenarPorIdade()``: Ordena as pessoas da lista por idade usando a interface Comparable.
-- ``ordenarPorAltura()``: Ordena as pessoas da lista por altura usando um Comparator personalizado.
+- `adicionarPessoa(String nome, int idade, double altura)`: Adiciona uma pessoa à lista.
+- `ordenarPorIdade()`: Ordena as pessoas da lista por idade usando a interface Comparable.
+- `ordenarPorAltura()`: Ordena as pessoas da lista por altura usando um Comparator personalizado.
 
 2. Ordenação de Números
    Crie uma classe chamada "OrdenacaoNumeros" que possui uma lista de números inteiros como atributo. Implemente os seguintes métodos:
 
-``- adicionarNumero(int numero)``: Adiciona um número à lista.
-- ``ordenarAscendente()``: Ordena os números da lista em ordem ascendente usando a interface Comparable e a class Collections.
-- ``ordenarDescendente()``: Ordena os números da lista em ordem descendente usando um Comparable e a class Collections.
+`- adicionarNumero(int numero)`: Adiciona um número à lista.
 
-### SET
+- `ordenarAscendente()`: Ordena os números da lista em ordem ascendente usando a interface Comparable e a class Collections.
+- `ordenarDescendente()`: Ordena os números da lista em ordem descendente usando um Comparable e a class Collections.
+
+#### SET
 
 - A interface Set é uma coleção que não pode conter elementos duplicados.
 - Essa interface representa o conceito matemático de um conjunto e é usada para representar conjuntos, como um baralho de cartas.
@@ -3051,6 +3061,7 @@ Exercícios:
 > LinkedHashSet: O LinkedHashSet é uma implementação da interface Set que mantém a ordem de inserção dos elementos, além de usar uma tabela hash para obter um bom desempenho de busca. Ele é semelhante ao HashSet, mas também mantém uma lista duplamente vinculada que preserva a ordem de inserção. Isso permite que os elementos sejam percorridos na ordem em que foram adicionados. O LinkedHashSet é útil quando você precisa manter a ordem de inserção dos elementos e também ter um bom desempenho de busca.
 
 #### Fixando os Conhecimentos
+
 Exercícios:
 
 1. Pesquisa em Set
@@ -3058,63 +3069,635 @@ Exercícios:
 3. Operações Básicas com Set
 
 **Operações Básicas com Set**
+
 1. Conjunto de Convidados
 
    Crie uma classe chamada "ConjuntoConvidados" que possui um conjunto de objetos do tipo "Convidado" como atributo. Cada convidado possui atributos como nome e código do convite. Implemente os seguintes métodos:
 
-- ``adicionarConvidado(String nome, int codigoConvite)``: Adiciona um convidado ao conjunto.
-- ``removerConvidadoPorCodigoConvite(int codigoConvite)``: Remove um convidado do conjunto com base no código do convite.
-- ``contarConvidados()``: Conta o número total de convidados no Set.
-- ``exibirConvidados()``: Exibe todos os convidados do conjunto.
+- `adicionarConvidado(String nome, int codigoConvite)`: Adiciona um convidado ao conjunto.
+- `removerConvidadoPorCodigoConvite(int codigoConvite)`: Remove um convidado do conjunto com base no código do convite.
+- `contarConvidados()`: Conta o número total de convidados no Set.
+- `exibirConvidados()`: Exibe todos os convidados do conjunto.
 
 2. Conjunto de Palavras Únicas
 
    Crie uma classe chamada "ConjuntoPalavrasUnicas" que possui um conjunto de palavras únicas como atributo. Implemente os seguintes métodos:
 
-- ``adicionarPalavra(String palavra)``: Adiciona uma palavra ao conjunto.
-- ``removerPalavra(String palavra)``: Remove uma palavra do conjunto.
-- ``verificarPalavra(String palavra)``: Verifica se uma palavra está presente no conjunto.
-- ``exibirPalavrasUnicas()``: Exibe todas as palavras únicas do conjunto.
+- `adicionarPalavra(String palavra)`: Adiciona uma palavra ao conjunto.
+- `removerPalavra(String palavra)`: Remove uma palavra do conjunto.
+- `verificarPalavra(String palavra)`: Verifica se uma palavra está presente no conjunto.
+- `exibirPalavrasUnicas()`: Exibe todas as palavras únicas do conjunto.
 
 **Pesquisa em Set**
+
 1. Agenda de Contatos
 
    Crie uma classe chamada "AgendaContatos" que possui um conjunto de objetos do tipo "Contato" como atributo. Cada contato possui atributos como nome e número de telefone. Implemente os seguintes métodos:
 
-- ``adicionarContato(String nome, int numero)``: Adiciona um contato à agenda.
-- ``exibirContatos()``: Exibe todos os contatos da agenda.
-- ``pesquisarPorNome(String nome)``: Pesquisa contatos pelo nome e retorna uma conjunto com os contatos encontrados.
-- ``atualizarNumeroContato(String nome, int novoNumero)``: Atualiza o número de telefone de um contato específico.
+- `adicionarContato(String nome, int numero)`: Adiciona um contato à agenda.
+- `exibirContatos()`: Exibe todos os contatos da agenda.
+- `pesquisarPorNome(String nome)`: Pesquisa contatos pelo nome e retorna uma conjunto com os contatos encontrados.
+- `atualizarNumeroContato(String nome, int novoNumero)`: Atualiza o número de telefone de um contato específico.
 
 2. Lista de Tarefas
 
    Crie uma classe chamada "ListaTarefas" que possui um conjunto de objetos do tipo "Tarefa" como atributo. Cada tarefa possui um atributo de descrição e um atributo booleano para indicar se a tarefa foi concluída ou não. Implemente os seguintes métodos:
 
--`` adicionarTarefa(String descricao)``: Adiciona uma nova tarefa ao Set.
-- ``removerTarefa(String descricao)``: Remove uma tarefa do Set de acordo com a descrição, se estiver presente.
-- ``exibirTarefas()``: Exibe todas as tarefas da lista de tarefas.
-- ``contarTarefas()``: Conta o número total de tarefas na lista de tarefas.
-- ``obterTarefasConcluidas()``: Retorna um Set com as tarefas concluídas.
-- ``obterTarefasPendentes()``: Retorna um Set com as tarefas pendentes.
-- ``marcarTarefaConcluida(String descricao)``: Marca uma tarefa como concluída de acordo com a descrição.
-- ``marcarTarefaPendente(String descricao)``: Marca uma tarefa como pendente de acordo com a descrição.
-- ``limparListaTarefas()``: Remove todas as tarefas da lista de tarefas.
+-` adicionarTarefa(String descricao)`: Adiciona uma nova tarefa ao Set.
+
+- `removerTarefa(String descricao)`: Remove uma tarefa do Set de acordo com a descrição, se estiver presente.
+- `exibirTarefas()`: Exibe todas as tarefas da lista de tarefas.
+- `contarTarefas()`: Conta o número total de tarefas na lista de tarefas.
+- `obterTarefasConcluidas()`: Retorna um Set com as tarefas concluídas.
+- `obterTarefasPendentes()`: Retorna um Set com as tarefas pendentes.
+- `marcarTarefaConcluida(String descricao)`: Marca uma tarefa como concluída de acordo com a descrição.
+- `marcarTarefaPendente(String descricao)`: Marca uma tarefa como pendente de acordo com a descrição.
+- `limparListaTarefas()`: Remove todas as tarefas da lista de tarefas.
 
 **Ordenação em Set**
+
 1. Cadastro de Produtos
 
    Crie uma classe chamada "CadastroProdutos" que possui um conjunto de objetos do tipo "Produto" como atributo. Cada produto possui atributos como nome, cod, preço e quantidade. Implemente os seguintes métodos:
 
-- ``adicionarProduto(long cod, String nome, double preco, int quantidade)``: Adiciona um produto ao cadastro.
-- ``exibirProdutosPorNome()``: Exibe todos os produtos do cadastro em ordem alfabética pelo nome.
-- ``exibirProdutosPorPreco()``: Exibe todos os produtos do cadastro em ordem crescente de preço.
+- `adicionarProduto(long cod, String nome, double preco, int quantidade)`: Adiciona um produto ao cadastro.
+- `exibirProdutosPorNome()`: Exibe todos os produtos do cadastro em ordem alfabética pelo nome.
+- `exibirProdutosPorPreco()`: Exibe todos os produtos do cadastro em ordem crescente de preço.
 
 2. Lista de Alunos
 
    Crie uma classe chamada "GerenciadorAlunos" que irá lidar com uma lista de alunos. Cada aluno terá atributos como nome, matrícula e nota. Implementaremos os seguintes métodos:
 
-- ``adicionarAluno(String nome, Long matricula, double media)``: Adiciona um aluno ao conjunto.
-- ``removerAluno(long matricula)``: Remove um aluno ao conjunto a partir da matricula, se estiver presente.
-- ``exibirAlunosPorNome()``: Exibe todos os alunos do conjunto em ordem alfabética pelo nome.
-- ``exibirAlunosPorNota()``: Exibe todos os alunos do conjunto em ordem crescente de nota.
-- ``exibirAlunos()``: Exibe todos os alunos do conjunto.
+- `adicionarAluno(String nome, Long matricula, double media)`: Adiciona um aluno ao conjunto.
+- `removerAluno(long matricula)`: Remove um aluno ao conjunto a partir da matricula, se estiver presente.
+- `exibirAlunosPorNome()`: Exibe todos os alunos do conjunto em ordem alfabética pelo nome.
+- `exibirAlunosPorNota()`: Exibe todos os alunos do conjunto em ordem crescente de nota.
+- `exibirAlunos()`: Exibe todos os alunos do conjunto.
+
+#### MAP
+
+![Hierarchy of Collection Framework in Java](https://github.com/cami-la/collections-java-api-2023/raw/master/assets/image/map-interface-hierarchy.png)
+[Hierarchy of Collection Framework in Java](https://data-flair.training/blogs/collection-framework-in-java/)
+
+- A interface `Map` é usada para mapear dados na forma de chaves e valores.
+- O `Map` do Java é um objeto que mapeia chaves para valores.
+- Um `Map` não pode conter chaves duplicadas: cada chave pode mapear no máximo um valor.
+- A plataforma Java possui três implementações gerais de `Map`: `HashMap`, `TreeMap` e `LinkedHashMap`.
+- As operações básicas do `Map` são: `put` (inserir ou atualizar), `get` (obter), `containsKey` (verificar se contém uma chave), `containsValue` (verificar se contém um valor), `size` (obter o tamanho) e `isEmpty` (verificar se está vazio).
+
+> _HashTable_ é uma implementação antiga da interface Map no Java que é sincronizada e thread-safe, tornando-a adequada para uso em ambientes concorrentes. Ela não permite chaves ou valores nulos e os elementos não são mantidos em uma ordem específica.
+
+> _LinkedHashMap_, por outro lado, é uma implementação da interface Map que preserva a ordem de inserção dos elementos. Cada elemento possui referências ao próximo e ao anterior, formando uma lista encadeada. Isso permite que os elementos sejam iterados na ordem em que foram inseridos. Além disso, o LinkedHashMap também permite chaves ou valores nulos.
+
+> _HashMap_ é uma implementação da interface Map que não mantém uma ordem específica dos elementos. Ele armazena os elementos internamente usando uma função de hash para melhorar a eficiência das operações de pesquisa e acesso. O HashMap também permite chaves ou valores nulos.
+
+**Fixando os Conhecimentos**
+
+Exercícios:
+
+1. Operações Básicas com Map
+2. Pesquisa em Map
+3. Ordenação nas Map
+
+**Operações Básicas com Map**
+
+**1. Agenda de Contatos**
+
+Crie uma classe chamada "AgendaContatos" que utilize um Map para armazenar os contatos. Cada contato possui um nome como chave e um número de telefone como valor. Implemente os seguintes métodos:
+
+- `adicionarContato(String nome, Integer telefone)`: Adiciona um contato à agenda, associando o nome do contato ao número de telefone correspondente.
+- `removerContato(String nome)`: Remove um contato da agenda, dado o nome do contato.
+- `exibirContatos()`: Exibe todos os contatos da agenda, mostrando o nome e o número de telefone de cada contato.
+- pesquisarPorNome(String nome): Pesquisa um contato pelo nome e retorna o número de telefone correspondente.
+
+**2. Dicionário**
+
+Crie uma classe chamada "Dicionario" que utilize um Map para armazenar palavras e suas respectivas definições. Implemente os seguintes métodos:
+
+- `adicionarPalavra(String palavra, String definicao)`: Adiciona uma palavra e sua definição ao dicionário, associando a palavra à sua definição correspondente.
+- `removerPalavra(String palavra)`: Remove uma palavra do dicionário, dado o termo a ser removido.
+- `exibirPalavras()`: Exibe todas as palavras e suas definições do dicionário, mostrando cada palavra seguida de sua respectiva definição.
+- `pesquisarPorPalavra(String palavra)`: Pesquisa uma palavra no dicionário e retorna sua definição correspondente.
+
+**Pesquisa em Map**
+
+**1. Estoque de Produtos com Preço**
+
+Crie uma classe chamada "EstoqueProdutos" que utilize um Map para armazenar os produtos, suas quantidades em estoque e seus respectivos preços. Cada produto possui um código como chave e um objeto Produto como valor, contendo nome, quantidade e preço. Implemente os seguintes métodos:
+
+- `adicionarProduto(long cod, String nome, int quantidade, double preco)`: Adiciona um produto ao estoque, juntamente com a quantidade disponível e o preço.
+- `exibirProdutos()`: Exibe todos os produtos, suas quantidades em estoque e preços.
+- `calcularValorTotalEstoque()`: Calcula e retorna o valor total do estoque, considerando a quantidade e o preço de cada produto.
+- `obterProdutoMaisCaro()`: Retorna o produto mais caro do estoque, ou seja, aquele com o maior preço.
+- `obterProdutoMaisBarato()`: Retorna o produto mais barato do estoque, ou seja, aquele com o menor preço.
+- `obterProdutoMaiorQuantidadeValorTotalNoEstoque()`: Retorna o produto que está em maior quantidade no estoque, considerando o valor total de cada produto (quantidade \* preço).
+
+**2. Contagem de Palavras**
+
+Crie uma classe chamada "ContagemPalavras" que utilize um Map para armazenar as palavras e a quantidade de vezes que cada palavra aparece em um texto. Implemente os seguintes métodos:
+
+- `adicionarPalavra(String palavra, Integer contagem)`: Adiciona uma palavra à contagem.
+- `removerPalavra(String palavra)`: Remove uma palavra da contagem, se estiver presente.
+- `exibirContagemPalavras()`: Exibe todas as palavras e suas respectivas contagens.
+- `encontrarPalavraMaisFrequente()`: Encontra a palavra mais frequente no texto e retorna a palavra e sua contagem.
+
+**Ordenação nos Map**
+
+**1. Agenda de Eventos**
+
+Crie uma classe chamada "AgendaEventos" que utilize um `Map` para armazenar as datas e seus respectivos Eventos. Cada evento é representado por um objeto da classe "Evento", que possui atributos como nome do evento e o nome da atração. Implemente os seguintes métodos:
+
+- `adicionarEvento(LocalDate data, String nome, String atracao)`: Adiciona um evento à agenda.
+- `exibirAgenda()`: Exibe a agenda de eventos em ordem crescente de data.
+- `obterProximoEvento()`: Retorna o próximo evento que ocorrerá.
+
+**2. Livraria Online**
+
+Crie uma classe chamada "LivrariaOnline" que representa uma livraria online. Essa classe utiliza um Map para armazenar os livros disponíveis na livraria, utilizando o link da obra na Amazon Marketplace como chave e um objeto da classe "Livro" como valor. A classe "Livro" possui atributos como título, autor e preço. Através da classe "LivrariaOnline", implemente os seguintes métodos:
+
+- `adicionarLivro(String link, String titulo, String autor, private double preco)`: Adiciona um livro à livraria, utilizando o ISBN como chave no Map.
+- `removerLivro(String titulo)`: Remove um livro da livraria, dado o titulo do livro.
+- `exibirLivrosOrdenadosPorPreco()`: Exibe os livros da livraria em ordem crescente de preço.
+- `pesquisarLivrosPorAutor(String autor)`: Retorna uma lista de todos os livros escritos por um determinado autor.
+- `obterLivroMaisCaro()`: Retorna o livro mais caro disponível na livraria.
+- `exibirLivroMaisBarato()`: Retorna o livro mais barato disponível na livraria.
+
+### Ganhando Produtividade com Stream API e Java
+
+- A Streams API traz uma nova opção para a manipulação de coleções em Java seguindo os princípios da programação funcional.
+- Stream, trata-se de uma poderosa solução para processar coleções de maneira declarativa, ao invés da tradicional e burocrática forma imperativa.
+
+      public class CarrinhoDeCompras {
+        //atributos
+        private List<Item> itemList;
+        //construtor
+        public CarrinhoDeCompras() {
+          this.itemList = new ArrayList<>();
+        }
+
+        //método para calcular valor total dos itens sem utilizar o Stream API
+        public double calcularValorTotal() {
+          double valorTotal = 0d;
+          if (!itemList.isEmpty()) {
+            for (Item item : itemList) {
+            double valorItem = item.getPreco() * item.getQuant();
+            valorTotal += valorItem;
+          }
+          return valorTotal;
+        } else {
+            throw new RuntimeException("A lista está vazia!");
+          }
+        }
+      }
+
+- Na forma imperativa, para realizar uma soma simples, por exemplo, o desenvolvedor tem que se preocupar não apenas com o que deve ser feito em cada elemento, isto é, com as regras associadas ao processamento dos elementos da lista, mas também com a maneira de realizar essa iteração.
+
+  public class CarrinhoDeCompras {
+  //atributos
+  private List<Item> itemList;
+  //construtor
+  public CarrinhoDeCompras() {
+  this.itemList = new ArrayList<>();
+  }
+
+      //método para calcular valor total dos itens utilizando o Stream API
+      public double calcularValorTotal() {
+        if (itemList.isEmpty()) {
+          throw new RuntimeException("A lista está vazia!");
+        }
+        return itemList.stream()
+        .mapToDouble(item -> item.getPreco() * item.getQuant())
+        .sum();
+      }
+
+  }
+
+- Combinada com as Expressões Lambda e Method reference, eles proporcionam uma forma diferente de lidar com conjuntos de elementos, oferecendo ao desenvolvedor uma maneira simples e concisa de escrever código que resulta em facilidade de manutenção e paralelização sem efeitos indesejados em tempo de execução.
+- As operações na Stream API podem ser classificadas em duas categorias principais:
+
+1. Operações Intermediárias: são aquelas que retornam uma nova Stream e permitem encadear várias operações, formando um pipeline de processamento de dados. São elas:
+
+- `filter(Predicate<T> predicate)`: Filtra os elementos da Stream com base em um predicado. Retorna uma nova Stream contendo apenas os elementos que atendem ao critério do predicado. Exemplo: ` stream.filter(n -> n > 5)`
+- `map(Function<T, R> mapper)`: Transforma cada elemento da Stream usando a função especificada e retorna uma nova Stream contendo os elementos resultantes. Exemplo: `stream.map(s -> s.toUpperCase())`
+- `sorted()`: Classifica os elementos da Stream em ordem natural (se os elementos forem comparáveis) ou de acordo com um comparador fornecido. Exemplo: `stream.sorted()`
+- `distinct()`: Remove elementos duplicados da Stream, considerando a implementação do método `equals()` para comparação. Exemplo: `stream.distinct()`
+- `limit(long maxSize)`: Limita o número de elementos da Stream aos maxSize primeiros elementos Exemplo: `stream.limit(10)`
+- `skip(long n)`: Pula os primeiros n elementos da Stream e retorna uma nova Stream sem eles. Exemplo: `stream.skip(5)`
+
+2. Operações Terminais: são aquelas que encerram o pipeline e produzem um resultado final. São elas:
+
+- `forEach(Consumer<T> action)`: Executa uma ação para cada elemento da Stream. Exemplo: `stream.forEach(System.out::println)`
+- `toArray()`: Converte a Stream em um array contendo os elementos da Stream. Exemplo: `stream.toArray()`
+- `collect(Collector<T, A, R> collector)`: Coleta os elementos da Stream em uma estrutura de dados específica, como uma lista ou um mapa. Exemplo: `stream.collect(Collectors.toList())`
+- `count()`: Retorna o número de elementos na Stream. Exemplo: `stream.count()`
+- `anyMatch(Predicate<T> predicate)`: Verifica se algum elemento da Stream atende ao predicado especificado. Exemplo: `stream.anyMatch(s -> s.startsWith("A"))`
+- `allMatch(Predicate<T> predicate)`: Verifica se todos os elementos da Stream atendem ao predicado especificado. Exemplo: `stream.allMatch(n -> n > 0)`
+- `noneMatch(Predicate<T> predicate)`: Verifica se nenhum elemento da Stream atende ao predicado especificado. Exemplo: `stream.noneMatch(s -> s.isEmpty())`
+- `min(Comparator<T> comparator)` e `max(Comparator<T> comparator)`: Encontra o elemento mínimo e máximo da Stream, respectivamente, de acordo com o comparador fornecido. Exemplo: `stream.min(Comparator.naturalOrder())` ou `stream.max(Comparator.naturalOrder())`
+- `reduce(T identity, BinaryOperator<T> accumulator)`: Combina os elementos da Stream usando o acumulador especificado e retorna o resultado final. Exemplo: `stream.reduce(0, (a, b) -> a + b)`
+
+#### Lambda
+
+- As expressões lambda permitem representar interfaces funcionais (interfaces com um único método abstrato) de forma mais concisa e possibilitam escrever código no estilo funcional.
+- As interfaces funcionais desempenham um papel crucial na programação funcional em Java, pois servem de base para o uso de expressões lambda.
+- Uma função lambda é uma função sem declaração, isto é, não é necessário colocar um nome, um tipo de retorno e o modificador de acesso. A ideia é que o método seja declarado no mesmo lugar em que será usado.
+- As funções lambda em Java tem a sintaxe definida como (argumento) -> (corpo).
+
+      public class OrdenacaoPessoa {
+        //atributo
+        private List<Pessoa> pessoaList;
+
+        //construtor
+        public OrdenacaoPessoa() {
+        this.pessoaList = new ArrayList<>();
+        }
+
+        public List<Pessoa> ordenarPorAltura() {
+          if (!pessoaList.isEmpty()) {
+            List<Pessoa> pessoasPorAltura = new ArrayList<>(pessoaList);
+            pessoasPorAltura.sort((p1, p2) -> Double.compare(p1.getAltura(), p2.getAltura()));
+            return pessoasPorAltura;
+          } else {
+            throw new RuntimeException("A lista está vazia!");
+          }
+        }
+      }
+
+#### Method Reference
+
+- Method Reference é um novo recurso do Java 8 que permite fazer referência a um método ou construtor de uma classe (de forma funcional) e assim indicar que ele deve ser utilizado num ponto específico do código, deixando-o mais simples e legível.
+- Para utilizá-lo, basta informar uma classe ou referência seguida do símbolo “::” e o nome do método sem os parênteses no final.
+
+      public class OrdenacaoPessoa {
+        //atributo
+        private List<Pessoa> pessoaList;
+
+        //construtor
+        public OrdenacaoPessoa() {
+        thi s.pessoaList = new ArrayList<>();
+        }
+
+        public List<Pessoa> ordenarPorAltura() {
+          if (!pessoaList.isEmpty()) {
+            List<Pessoa> pessoasPorAltura = new ArrayList<>(pessoaList);
+            pessoasPorAltura.sort(Comparator.comparingDouble(Pessoa::getAltura));
+            return pessoasPorAltura;
+          } else {
+            throw new RuntimeException("A lista está vazia!");
+          }
+        }
+      }
+
+#### Functional Interface
+
+Qualquer interface com um SAM (Single Abstract Method) é uma interface funcional e sua implementação pode ser tratada como expressões lambda.
+
+- `Consumer<T>`: Representa uma operação que aceita um argumento do tipo T e não retorna nenhum resultado. É utilizada principalmente para realizar ações ou efeitos colaterais nos elementos do Stream sem modificar ou retornar um valor.
+
+        public class ConsumerExample {
+          public static void main(String[] args) {
+            // Criar uma lista de números inteiros
+            List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5);
+
+              // Usar o Consumer com expressão lambda para imprimir números pares
+              Consumer<Integer> imprimirNumeroPar = numero -> {
+                if (numero % 2 == 0) {
+                  System.out.println(numero);
+                }
+              };
+
+              // Usar o Consumer para imprimir números pares no Stream
+              numeros.stream_api().forEach(imprimirNumeroPar);
+            }
+        }
+
+        public class ConsumerExample {
+          public static void main(String[] args) {
+            // Criar uma lista de números inteiros
+            List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5);
+
+            // Usar o Consumer com uma classe anônima para imprimir números pares
+            Consumer<Integer> imprimirNumeroPar = new Consumer<Integer>() {
+              @Override
+              public void accept(Integer numero) {
+                if (numero % 2 == 0) {
+                  System.out.println(numero);
+                }
+              }
+            };
+
+            // Usar o Consumer para imprimir números pares da lista
+            for (Integer numero : numeros) {
+              imprimirNumeroPar.accept(numero);
+            }
+          }
+        }
+
+- `Supplier<T>`: Representa uma operação que não aceita nenhum argumento e retorna um resultado do tipo T. É comumente usada para criar ou fornecer novos objetos de um determinado tipo.
+
+        public class SupplierExample {
+          public static void main(String[] args) {
+            // Usar o Supplier com expressão lambda para fornecer uma saudação personalizada
+            Supplier<String> saudacao = () -> "Olá, seja bem-vindo(a)!";
+
+            // Usar o Supplier para obter uma lista com 5 saudações
+            List<String> listaSaudacoes = Stream.generate(saudacao)
+                .limit(5)
+                .collect(Collectors.toList());
+
+            // Imprimir as saudações geradas
+            listaSaudacoes.forEach(System.out::println);
+          }
+        }
+
+        public class SupplierExample {
+          public static void main(String[] args) {
+            // Usar o Supplier com uma classe anônima para fornecer uma saudação personalizada
+            Supplier<String> saudacao = new Supplier<String>() {
+              @Override
+              public String get() {
+                return "Olá, seja bem-vindo(a)!";
+              }
+            };
+
+            // Usar o Supplier para obter uma lista com 5 saudações
+            List<String> listaSaudacoes = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+              listaSaudacoes.add(saudacao.get());
+            }
+
+            // Imprimir as saudações geradas
+            for (String saudacaoGerada : listaSaudacoes) {
+              System.out.println(saudacaoGerada);
+            }
+          }
+        }
+
+- `Function<T, R>`: Representa uma função que aceita um argumento do tipo T e retorna um resultado do tipo R. É utilizada para transformar ou mapear os elementos do Stream em outros valores ou tipos.
+
+        public class FunctionExample {
+          public static void main(String[] args) {
+            // Criar uma lista de números inteiros
+            List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5);
+
+            // Usar a Function com expressão lambda para dobrar todos os números
+            Function<Integer, Integer> dobrar = numero -> numero * 2;
+
+            // Usar a função para dobrar todos os números no Stream e armazená-los em outra lista
+            List<Integer> numerosDobrados = numeros.stream_api()
+                .map(dobrar)
+                .collect(Collectors.toList());
+
+            // Imprimir a lista de números dobrados
+            numerosDobrados.forEach(System.out::println);
+          }
+        }
+
+        public class FunctionExample {
+          public static void main(String[] args) {
+            // Criar uma lista de números inteiros
+            List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5);
+
+            // Usar a Function com uma classe anônima para dobrar todos os números
+            Function<Integer, Integer> dobrar = new Function<Integer, Integer>() {
+              @Override
+              public Integer apply(Integer numero) {
+                return numero * 2;
+              }
+            };
+
+            // Usar a função para dobrar todos os números e armazená-los em outra lista
+            List<Integer> numerosDobrados = new ArrayList<>();
+            for (Integer numero : numeros) {
+              numerosDobrados.add(dobrar.apply(numero));
+            }
+
+            // Imprimir a lista de números dobrados
+            for (Integer numeroDobrado : numerosDobrados) {
+              System.out.println(numeroDobrado);
+            }
+          }
+        }
+
+- `Predicate<T>`: Representa uma função que aceita um argumento do tipo T e retorna um valor booleano (verdadeiro ou falso). É comumente usada para filtrar os elementos do Stream com base em alguma condição.
+
+        public class PredicateExample {
+          public static void main(String[] args) {
+          // Criar uma lista de números inteiros
+          List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+              // Usar o Predicate com expressão lambda para filtrar números pares
+              Predicate<Integer> isPar = numero -> numero % 2 == 0;
+
+              // Usar o predicado para filtrar números pares no Stream e armazená-los em outra lista
+              List<Integer> numerosPares = numeros.stream_api()
+                  .filter(isPar)
+                  .collect(Collectors.toList());
+
+              // Imprimir a lista de números pares
+              numerosPares.forEach(System.out::println);
+          }
+        }
+
+        public class PredicateExample {
+          public static void main(String[] args) {
+          // Criar uma lista de números inteiros
+          List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+              // Usar o Predicate com uma classe anônima para filtrar números pares
+              Predicate<Integer> isPar = new Predicate<Integer>() {
+                @Override
+                public boolean test(Integer numero) {
+                  return numero % 2 == 0;
+                }
+              };
+
+              // Usar o predicado para filtrar números pares e armazená-los em outra lista
+              List<Integer> numerosPares = new ArrayList<>();
+              for (Integer numero : numeros) {
+                if (isPar.test(numero)) {
+                  numerosPares.add(numero);
+                }
+              }
+
+              // Imprimir a lista de números pares
+              for (Integer numeroPar : numerosPares) {
+                System.out.println(numeroPar);
+              }
+          }
+        }
+
+- `BinaryOperator<T>`: Representa uma operação que combina dois argumentos do tipo T e retorna um resultado do mesmo tipo T. É usada para realizar operações de redução em pares de elementos, como somar números ou combinar objetos.
+
+        public class BinaryOperatorExample {
+          public static void main(String[] args) {
+          // Criar uma lista de números inteiros
+          List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5);
+
+              // Usar o BinaryOperator com expressão lambda para somar dois números inteiros
+              BinaryOperator<Integer> somar = (num1, num2) -> num1 + num2;
+
+              // Usar o BinaryOperator para somar todos os números no Stream
+              int resultado = numeros.stream_api()
+                  .reduce(0, somar);
+
+              // Imprimir o resultado da soma
+              System.out.println("A soma dos números é: " + resultado);
+          }
+        }
+
+        public class BinaryOperatorExample {
+          public static void main(String[] args) {
+          // Criar uma lista de números inteiros
+          List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5);
+
+              // Usar o BinaryOperator com classe anônima para somar dois números inteiros
+              BinaryOperator<Integer> somar = new BinaryOperator<Integer>() {
+                @Override
+                public Integer apply(Integer num1, Integer num2) {
+                  return num1 + num2;
+                }
+              };
+
+              // Usar o BinaryOperator para somar todos os números no Stream
+              int resultado = numeros.stream_api()
+                  .reduce(0, somar);
+
+              // Imprimir o resultado da soma
+              System.out.println("A soma dos números é: " + resultado);
+          }
+        }
+
+> Classe Anônima: A classe anônima em Java é uma classe não recebeu um nome e é tanto declarado e instanciado em uma única instrução. Você deve considerar o uso de uma classe anônima sempre que você precisa para criar uma classe que será instanciado apenas uma vez.
+
+#### Stream API Java - Principais Métodos
+
+Vamos praticar e aprofundar nossos conhecimentos na poderosa Stream API do Java!
+Abaixo, apresentamos uma lista de desafios envolvendo operações com streams para exercitar suas habilidades e criatividade.
+
+Para todos os desafios, utilizem a lista de números inteiros fornecida:
+
+`List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 5, 4, 3);`
+
+- Desafio 1 - Mostre a lista na ordem numérica:
+  Crie um programa que utilize a Stream API para ordenar a lista de números em ordem crescente e a exiba no console.
+
+- Desafio 2 - Imprima a soma dos números pares da lista:
+  Utilizando a Stream API, realize a soma dos números pares da lista e exiba o resultado no console.
+
+- Desafio 3 - Verifique se todos os números da lista são positivos:
+  Com a ajuda da Stream API, verifique se todos os números da lista são positivos e exiba o resultado no console.
+
+- Desafio 4 - Remova todos os valores ímpares:
+  Utilize a Stream API para remover os valores ímpares da lista e imprima a lista resultante no console.
+
+- Desafio 5 - Calcule a média dos números maiores que 5:
+  Com a Stream API, calcule a média dos números maiores que 5 e exiba o resultado no console.
+
+- Desafio 6 - Verificar se a lista contém algum número maior que 10:
+  Utilize a Stream API para verificar se a lista contém algum número maior que 10 e exiba o resultado no console.
+
+- Desafio 7 - Encontrar o segundo número maior da lista:
+  Com a ajuda da Stream API, encontre o segundo número maior da lista e exiba o resultado no console.
+
+- Desafio 8 - Somar os dígitos de todos os números da lista:
+  Utilizando a Stream API, realize a soma dos dígitos de todos os números da lista e exiba o resultado no console.
+
+- Desafio 9 - Verificar se todos os números da lista são distintos (não se repetem):
+  Com a Stream API, verifique se todos os números da lista são distintos (não se repetem) e exiba o resultado no console.
+
+- Desafio 10 - Agrupe os valores ímpares múltiplos de 3 ou de 5:
+  Utilize a Stream API para agrupar os valores ímpares múltiplos de 3 ou de 5 e exiba o resultado no console.
+
+- Desafio 11 - Encontre a soma dos quadrados de todos os números da lista:
+  Utilizando a Stream API, encontre a soma dos quadrados de todos os números da lista e exiba o resultado no console.
+
+- Desafio 12 - Encontre o produto de todos os números da lista:
+  Com a ajuda da Stream API, encontre o produto de todos os números da lista e exiba o resultado no console.
+
+- Desafio 13 - Filtrar os números que estão dentro de um intervalo:
+  Utilize a Stream API para filtrar os números que estão dentro de um intervalo específico (por exemplo, entre 5 e 10) e exiba o resultado no console.
+
+- Desafio 14 - Encontre o maior número primo da lista:
+  Com a Stream API, encontre o maior número primo da lista e exiba o resultado no console.
+
+- Desafio 15 - Verifique se a lista contém pelo menos um número negativo:
+  Utilizando a Stream API, verifique se a lista contém pelo menos um número negativo e exiba o resultado no console.
+
+- Desafio 16 - Agrupe os números em pares e ímpares:
+  Utilize a Stream API para agrupar os números em duas listas separadas, uma contendo os números pares e outra contendo os números ímpares da lista original, e exiba os resultados no console.
+
+- Desafio 17 - Filtrar os números primos da lista:
+  Com a ajuda da Stream API, filtre os números primos da lista e exiba o resultado no console.
+
+- Desafio 18 - Verifique se todos os números da lista são iguais:
+  Utilizando a Stream API, verifique se todos os números da lista são iguais e exiba o resultado no console.
+
+- Desafio 19 - Encontre a soma dos números divisíveis por 3 e 5:
+  Com a Stream API, encontre a soma dos números da lista que são divisíveis tanto por 3 quanto por 5 e exiba o resultado no console.
+
+**Instruções**:
+
+- Cada desafio deverá ser implementado em classes separadas neste mesmo pacote.
+- Os desafios podem ser executados individualmente a partir dos métodos main de cada classe.
+- Utilize a Stream API para implementar as operações solicitadas em cada desafio.
+
+Divirta-se resolvendo os desafios da Stream API do Java!
+Dúvidas: [https://github.com/cami-la/ganhando_produtividade_com_Stream_API_Java/issues](https://github.com/cami-la/ganhando_produtividade_com_Stream_API_Java/issues)
+
+#### Optional
+
+O objetivo da classe Optional no Java é fornecer uma abordagem mais segura e expressiva para tratar casos em que um valor pode ser ausente (nulo). Ela foi introduzida a partir do Java 8 para evitar o temido NullPointerException (NPE) que é comum quando se trabalha com referências nulas. Optional permite encapsular um valor que pode ser nulo dentro de um objeto Optional. Isso indica explicitamente que o valor pode ou não estar presente e requer que o código que deseja acessá-lo faça uma verificação explícita.
+
+- `of(value)`: Cria um Optional contendo o valor fornecido. Se o valor for nulo, lançará uma exceção NullPointerException.
+
+        Optional<String> optionalValue = Optional.of("Hello");
+        System.out.println(optionalValue.get());
+
+- `ofNullable(value)`: Cria um Optional contendo o valor fornecido, mas permite que o valor seja nulo.
+
+        String nullableValue = null;
+        Optional<String> optionalValue = Optional.ofNullable(nullableValue);
+        System.out.println(optionalValue.isPresent());
+
+- `empty()`: Retorna um Optional vazio (sem valor).
+
+        Optional<String> optionalValue = Optional.empty();
+        System.out.println(optionalValue.isPresent());
+
+- `isPresent()`: Verifica se o Optional contém um valor não nulo.
+
+        Optional<String> optionalValue = Optional.of("Hello");
+        System.out.println(optionalValue.isPresent());
+
+- `isEmpty()` (A partir do Java 11): Verifica se o Optional está vazio (não contém um valor não nulo).
+
+        Optional<String> optionalValue = Optional.ofNullable(null);
+        System.out.println(optionalValue.isEmpty());
+
+- `get()`: Obtém o valor contido no Optional. Se o valor for nulo, lançará uma exceção NoSuchElementException.
+
+        Optional<String> optionalValue = Optional.of("Hello");
+        System.out.println(optionalValue.get());
+
+- `orElse(defaultValue)`: Obtém o valor contido no Optional, ou retorna um valor padrão se o Optional estiver vazio
+
+        Optional<String> optionalValue = Optional.ofNullable(null);
+        String result = optionalValue.orElse("Default");
+        System.out.println(result);
+
+- `orElseGet(supplier)`: Obtém o valor contido no Optional, ou retorna um valor fornecido por um Supplier se o Optional estiver vazio.
+
+        Optional<String> optionalValue = Optional.ofNullable(null);
+        String result = optionalValue.orElseGet(() -> "Value from Supplier");
+        System.out.println(result);
+
+- `orElseThrow(exceptionSupplier)`: Obtém o valor contido no Optional, ou lança uma exceção fornecida por um Supplier se o Optional estiver vazio.
+
+        Optional<String> optionalValue = Optional.ofNullable(null);
+        String result = optionalValue.orElseThrow(() -> new RuntimeException("Value not present"));
+
+- `ifPresent(consumer)`: Executa uma ação fornecida por um Consumer se o Optional contiver um valor.
+
+        Optional<String> optionalValue = Optional.of("Hello");
+        optionalValue.ifPresent(value -> System.out.println("Valor presente: " + value));
